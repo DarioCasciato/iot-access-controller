@@ -50,13 +50,7 @@ namespace State
     // State implementations (can also be moved to separate files)
     void stateIdle()
     {
-        if(RFID::tagAvailable.getEdgePos())
-        {
-            Logging::log("positive edge detected");
-            Logging::log("Tag detected! UID: %x", RFID::getUID());
 
-            delay(10);
-        }
     }
 
     void stateEnd()
