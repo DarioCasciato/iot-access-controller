@@ -26,7 +26,8 @@ namespace Hardware
         Reader_RST =    (uint8_t)GPIO::Port::D2,
         Reader_SS =     (uint8_t)GPIO::Port::D1,
 
-        Buzzer =        (uint8_t)GPIO::Port::D0
+        Buzzer =        (uint8_t)GPIO::Port::D0,
+        LED =           (uint8_t)GPIO::Port::D3
     };
 
 
