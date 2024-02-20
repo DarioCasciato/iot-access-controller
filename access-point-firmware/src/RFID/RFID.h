@@ -12,11 +12,6 @@ namespace RFID
     extern EdgeDetection tagAvailable;
 
 
-    /// @brief Check if the card is a master
-    /// @return True if the card is a master, false otherwise
-    ///
-    bool getMasterState();
-
     /// @brief Get the UID of the card
     /// @return The UID of the card
     ///
@@ -28,5 +23,5 @@ namespace RFID
 
     /// @brief Update the attributes of the card
     ///
-    void updateTagAttributes();
+    void updateTagUID();
 }

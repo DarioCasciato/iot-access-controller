@@ -4,6 +4,7 @@
 
 #include <Arduino.h>
 #include "hardware.h"
+#include <SPI.h>
 
 namespace Hardware
 {
@@ -17,7 +18,8 @@ namespace Hardware
 
     void init() // Initialize hardware, function is called once on startup
     {
-
+        SPI.begin(); // Init SPI bus
+        reader.PCD_Init(); // Init RFID reader
     }
 
     void updateHardware() // Fetch hardware values, function is called every loop

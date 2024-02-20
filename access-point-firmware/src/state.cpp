@@ -11,6 +11,16 @@
 #include "Logging.h"
 #include "RFID.h"
 
+bool tagPresent()
+{
+    static bool lastState = false;
+    bool currentState = Hardware::reader.PICC_IsNewCardPresent() &&
+                        Hardware::reader.PICC_ReadCardSerial();
+
+    bool diff = currentState ^ lastState;
+    lastState = currentState;
+    return diff;
+}
 
 //------------------------------------------------------------------------------
 
@@ -42,7 +52,10 @@ namespace State
     {
         if(RFID::tagAvailable.getEdgePos())
         {
-            Logging::log("Tag detected! UID: %d", RFID::getUID());
+            Logging::log("positive edge detected");
+            Logging::log("Tag detected! UID: %x", RFID::getUID());
+
+            delay(10);
         }
     }
 

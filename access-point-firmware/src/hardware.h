@@ -23,9 +23,10 @@ namespace Hardware
     {
         // Define your ports here
         // Example: LED = (uint8_t)GPIO::Port::D0,
-        Reader_RST =    (uint8_t)GPIO::Port::D9,
-        Reader_SS =     (uint8_t)GPIO::Port::D10,
-        Buzzer =        (uint8_t)GPIO::Port::D5
+        Reader_RST =    (uint8_t)GPIO::Port::D2,
+        Reader_SS =     (uint8_t)GPIO::Port::D1,
+
+        Buzzer =        (uint8_t)GPIO::Port::D0
     };
 
 

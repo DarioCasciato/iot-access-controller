@@ -10,20 +10,7 @@
 #include "Flash/Flash.h"
 #include "RFID.h"
 
-
-namespace
-{
-
-void refreshData()
-{
-    Hardware::updateHardware();
-    RFID::updateTagPresence();
-    EdgeDetection::updateEdges();
-    RFID::updateTagAttributes();
-}
-
-} // namespace
-
+void refreshData();
 
 
 //------------------------------------------------------------------------------
@@ -38,6 +25,7 @@ void setup()
 #endif
 
     Flash::init();
+    Hardware::init();
 }
 
 void loop()
@@ -52,4 +40,11 @@ void loop()
 
 //------------------------------------------------------------------------------
 
+void refreshData()
+{
+    Hardware::updateHardware();
 
+    RFID::updateTagPresence();
+    EdgeDetection::updateEdges();
+    RFID::updateTagUID();
+}
