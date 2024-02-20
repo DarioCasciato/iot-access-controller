@@ -21,7 +21,7 @@ namespace State
 
     /// @brief Handler for the Idle state
     ///
-    void stateTesting();
+    void stateIdle();
 
     /// @brief Handler for the Error state
     ///

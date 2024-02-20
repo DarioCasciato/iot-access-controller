@@ -4,6 +4,8 @@
 
 #include "gpioHandler.h"
 #include "../../src/hardware.h"
+#include <MFRC522.h>
+
 
 bool GPIO::getPort(Hardware::Port port)
 {

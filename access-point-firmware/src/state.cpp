@@ -21,7 +21,7 @@ namespace State
     {
         switch (State::state)
         {
-        case State::st_idle: stateTesting(); break;
+        case State::st_idle: stateIdle(); break;
         case State::st_end: stateEnd(); break;
 
         default:    // catch invalid state (implement safety backup)
@@ -37,7 +37,7 @@ namespace State
 
 
     // State implementations (can also be moved to separate files)
-    void stateTesting()
+    void stateIdle()
     {
 
     }

@@ -8,42 +8,18 @@
 #include "configurations.h"
 #include "state.h"
 #include "Flash/Flash.h"
-#include "rfid_utility.h"
+#include "RFID.h"
 
 
 namespace
 {
-    bool isMaster = 0;
-    uint32_t uid = 0;
 
-    uint8_t tagAvailableVal = 0;
-    EdgeDetection tagAvailable(&tagAvailableVal);
-
-    void refreshData()
-    {
-        tagAvailableVal = Tag::tagPresent();
-        EdgeDetection::updateEdges();
-
-        if(Tag::checkMaster())
-        {
-            isMaster = 1;
-        }
-
-        if(tagAvailable.getEdgePos())
-        {
-            uid = Tag::getUID();
-        }
-
-        if ((!tagAvailable.getEdgeNeg()) && (!tagAvailable.getActState()))
-        {
-            isMaster = 0;
-        }
-
-        for (uint8_t i = 0; i < 6; i++)
-            Hardware::key.keyByte[i] = 0xFF;
-
-        //Hardware::updateHardware();
-    }
+void refreshData()
+{
+    Hardware::updateHardware();
+    EdgeDetection::updateEdges();
+    RFID::updateTagAttributes();
+}
 
 } // namespace
 

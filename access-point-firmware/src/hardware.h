@@ -2,6 +2,8 @@
 // Template-Project | Hardware
 // =============================================================================
 
+#pragma once
+
 #ifndef _TEMPLATE_PROJECT_HARDWARE_
 #define _TEMPLATE_PROJECT_HARDWARE_
 
