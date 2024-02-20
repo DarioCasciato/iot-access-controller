@@ -5,14 +5,13 @@
 #include <stdint.h>
 #include <MFRC522.h>
 #include "EdgeDetection.h"
-#include "hardware.h"
+#include "../hardware.h"
 #include "RFID.h"
 
 namespace
 {
     MFRC522::StatusCode status;
     MFRC522::MIFARE_Key key;
-
     uint8_t blockData[17] = {"MasterMediumCard"};
     uint8_t bufferLen = 18;
     uint8_t readBlockData[18];
@@ -121,7 +120,7 @@ namespace
             return UID;
         }
     }
-}
+} // namespace
 
 
 namespace RFID
@@ -155,13 +154,7 @@ namespace RFID
             key.keyByte[i] = 0xFF;
     }
 
-    bool getMasterState()
-    {
-        return isMaster;
-    }
+    bool getMasterState() { return isMaster; }
 
-    uint32_t getUID()
-    {
-        return uid;
-    }
-}
+    uint32_t getUID() { return uid; }
+} // namespace RFID

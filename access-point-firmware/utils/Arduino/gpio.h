@@ -8,8 +8,6 @@
 #ifndef UTILS_GPIO_
 #define UTILS_GPIO_
 
-#include "../../src/hardware.h"
-
 
 namespace GPIO
 {

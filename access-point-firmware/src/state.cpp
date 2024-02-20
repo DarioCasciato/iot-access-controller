@@ -9,6 +9,7 @@
 #include "Timer.h"
 #include "Flash.h"
 #include "Logging.h"
+#include "RFID.h"
 
 
 //------------------------------------------------------------------------------
@@ -39,7 +40,10 @@ namespace State
     // State implementations (can also be moved to separate files)
     void stateIdle()
     {
-
+        if(RFID::tagAvailable.getEdgePos())
+        {
+            Logging::log("Tag detected! UID: %d", RFID::getUID());
+        }
     }
 
     void stateEnd()

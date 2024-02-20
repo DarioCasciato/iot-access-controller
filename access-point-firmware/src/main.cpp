@@ -17,6 +17,7 @@ namespace
 void refreshData()
 {
     Hardware::updateHardware();
+    RFID::updateTagPresence();
     EdgeDetection::updateEdges();
     RFID::updateTagAttributes();
 }

@@ -2,16 +2,13 @@
 // Template-Project | RFID
 // =============================================================================
 
-#pragma once
-
+#include <stdint.h>
 #include <MFRC522.h>
 #include "EdgeDetection.h"
 
+
 namespace RFID
 {
-    extern MFRC522::StatusCode status;
-    extern MFRC522::MIFARE_Key key;
-
     extern EdgeDetection tagAvailable;
 
 

@@ -4,8 +4,6 @@
 
 #include <Arduino.h>
 #include "hardware.h"
-#include "gpioHandler.h"
-#include "RFID.h"
 
 namespace Hardware
 {
@@ -24,6 +22,6 @@ namespace Hardware
 
     void updateHardware() // Fetch hardware values, function is called every loop
     {
-        RFID::updateTagPresence();
+
     }
 } // namespace Hardware
