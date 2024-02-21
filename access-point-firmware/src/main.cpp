@@ -9,6 +9,7 @@
 #include "state.h"
 #include "Flash/Flash.h"
 #include "RFID.h"
+#include "espWiFi.h"
 
 void refreshData();
 
@@ -26,6 +27,7 @@ void setup()
 
     Flash::init();
     Hardware::init();
+    Wifi::establish();
 }
 
 void loop()

@@ -5,22 +5,12 @@
 #include <inttypes.h>
 #include "state.h"
 #include "hardware.h"
-#include "configurations.h"
 #include "Timer.h"
 #include "Flash.h"
 #include "Logging.h"
 #include "RFID.h"
+#include "APIHandler.h"
 
-bool tagPresent()
-{
-    static bool lastState = false;
-    bool currentState = Hardware::reader.PICC_IsNewCardPresent() &&
-                        Hardware::reader.PICC_ReadCardSerial();
-
-    bool diff = currentState ^ lastState;
-    lastState = currentState;
-    return diff;
-}
 
 //------------------------------------------------------------------------------
 

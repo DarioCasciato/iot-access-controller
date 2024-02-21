@@ -14,10 +14,11 @@ namespace Hardware
 
     // signalization
     Buzzer buzzer((uint8_t)Port::Buzzer);
-
+    CRGB leds[1] = {CRGB(0, 0, 0)};
 
     void init() // Initialize hardware, function is called once on startup
     {
+        FastLED.addLeds<SK6812, (uint8_t)Port::LED>(leds, 1); // Init LED strip
         SPI.begin(); // Init SPI bus
         reader.PCD_Init(); // Init RFID reader
     }

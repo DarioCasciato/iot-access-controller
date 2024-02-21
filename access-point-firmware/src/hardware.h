@@ -9,6 +9,7 @@
 #include "configurations.h"
 #include "../utils/Arduino/gpio.h"
 #include <MFRC522.h>
+#include <FastLED.h>
 
 
 // Include all hardware drivers here as absolute paths
@@ -36,6 +37,7 @@ namespace Hardware
 
     // signalization
     extern Buzzer buzzer;
+    extern CRGB leds[1];
 
 
     /// @brief Initializes hardware
