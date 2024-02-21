@@ -9,7 +9,7 @@
 #include "state.h"
 #include "Flash/Flash.h"
 #include "RFID.h"
-#include "espWiFi.h"
+#include "../utils/Connectivity/ESPWiFi/espWiFi.h"
 
 void refreshData();
 

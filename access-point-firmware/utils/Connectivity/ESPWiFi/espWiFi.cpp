@@ -10,8 +10,8 @@
 
 namespace
 {
-    const char* fixSsid = "SSID";
-    const char* fixPassword = "PASSWORD";
+    const char* fixSsid = "Wi-Fi 2";
+    const char* fixPassword = "rc7145!!";
 } // namespace
 
 

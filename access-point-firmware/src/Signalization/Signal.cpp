@@ -3,10 +3,9 @@
 // =============================================================================
 
 #include "Signal.h"
-#include "../hardware.h"
-#include <FastLED.h>
+//#include "../hardware.h"
 
-
+/*
 namespace
 {
     CRGB color_red = {100, 0, 0}; // Values from 0-255
@@ -67,3 +66,4 @@ namespace Signal
         Hardware::buzzer.pause();
     }
 } // namespace Signal
+*/

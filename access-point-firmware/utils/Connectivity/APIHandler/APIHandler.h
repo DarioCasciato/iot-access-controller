@@ -60,15 +60,6 @@ namespace APIHandler
         ///
         template <typename T>
         bool extract(const String& jsonResponse, const String& path, T* result);
-
-        /// @brief Extracts the value at the specified path from the JSON response.
-        /// @param jsonResponse The JSON response.
-        /// @param path The path to the value. (Example: "value/innerValue")
-        /// @param result Where to store the result.
-        /// @return True if the value was extracted successfully, false otherwise.
-        ///
-        template <>
-        bool extract(const String& jsonResponse, const String& path, String* result);
     }
 }
 

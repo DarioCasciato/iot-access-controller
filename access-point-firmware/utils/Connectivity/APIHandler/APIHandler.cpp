@@ -6,6 +6,7 @@
 
 #include "APIHandler.h"
 #include "Logging.h"
+#include "../ESPWiFi/espWiFi.h"
 
 using namespace ArduinoJson;
 
@@ -78,10 +79,9 @@ namespace APIHandler
 
     bool post(String url, String payload, String& response)
     {
-        if (WiFi.status() != WL_CONNECTED)
+        if (!Wifi::isConnected())
         {
-            Logging::log("WIFI: Not connected!");
-            return false;
+            Wifi::establish();
         }
 
         HTTPClient http;
@@ -187,48 +187,12 @@ namespace APIHandler
                 return false;
             }
         }
-
-        template <>
-        bool extract(const String& jsonResponse, const String& path, String* result)
-        {
-            StaticJsonDocument<1024> doc;
-
-            DeserializationError error = deserializeJson(doc, jsonResponse);
-            if (error)
-            {
-                Logging::log("JSON: deserializeJson() failed: %s", error.f_str());
-                Logging::log("JSON: %s", jsonResponse.c_str());
-                return false;
-            }
-
-            JsonVariant value = doc;
-            int start = 0;
-            int end = path.indexOf('/', start);
-
-            while (end != -1)
-            {
-                String key = path.substring(start, end);
-                value = value[key];
-                start = end + 1;
-                end = path.indexOf('/', start);
-            }
-
-            // Get the last part of the path
-            String lastKey = path.substring(start);
-            value = value[lastKey];
-
-            if (!value.isNull() && value.is<const char*>())
-            {
-                *result = value.as<const char*>();
-                return true;
-            }
-            else
-            {
-                Logging::log("JSON: Path not found or type mismatch");
-                return false;
-            }
-        }
     }
 } // namespace APIHandler
+
+
+// Explicit template instantiation for types you expect to use.
+template bool APIHandler::JSON::extract<bool>(const String&, const String&, bool*);
+template bool APIHandler::JSON::extract<String>(const String&, const String&, String*);
 
 #endif // defined(ESP8266) || defined(ESP32)
