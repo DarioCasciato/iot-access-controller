@@ -33,27 +33,41 @@ app.post('/add-access', (req, res) => {
 
 app.post('/check-access', (req, res) => {
     const { uid } = req.body;
+
+    // Log when the route is hit and the UID received
+    console.log(`Received access check request for UID: ${uid}`);
+
     let accessGranted = false;
     let accessLevel = 'none';
     let message = "Access Denied";
 
-    // Read existing records
-    if (fs.existsSync(csvFilePath)) {
-        const fileContent = fs.readFileSync(csvFilePath);
-        const records = parse(fileContent, { columns: true, skip_empty_lines: true });
+    try {
+        // Read existing records
+        if (fs.existsSync(csvFilePath)) {
+            const fileContent = fs.readFileSync(csvFilePath);
+            const records = parse(fileContent, { columns: true, skip_empty_lines: true });
 
-        // Check if UID has access
-        const record = records.find(record => record.uid === uid && (record.expiresAt === "never" || new Date(record.expiresAt) > new Date()));
-        if (record) {
-            accessGranted = true;
-            accessLevel = record.accessLevel;
-            message = "Access Granted";
+            // Check if UID has access
+            const record = records.find(record => record.uid === uid && (record.expiresAt === "never" || new Date(record.expiresAt) > new Date()));
+            if (record) {
+                accessGranted = true;
+                accessLevel = record.accessLevel;
+                message = "Access Granted";
+            }
         }
+
+        // Log the result of the access check
+        console.log(`Access check for UID ${uid}: ${message}`);
+    } catch (error) {
+        // Log any errors encountered during the process
+        console.error(`Error checking access for UID ${uid}:`, error);
+        message = "Error processing request";
     }
 
     // Respond with access status
     res.json({ accessGranted, accessLevel, message });
 });
+
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

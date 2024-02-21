@@ -66,7 +66,7 @@ namespace State
 
 void checkAccess(const String& uid)
 {
-    String serverUrl = "http://localhost:3000/check-access"; // Replace with your actual server URL
+    String serverUrl = "http://192.168.1.153:3000/check-access"; // Replace with your actual server URL
     String payload = "{\"uid\":\"" + uid + "\"}";
     String response;
 
