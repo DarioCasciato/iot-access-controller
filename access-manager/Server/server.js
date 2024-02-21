@@ -12,7 +12,11 @@ app.use(bodyParser.json()); // for parsing application/json
 const csvFilePath = 'access-rights.csv';
 
 app.post('/add-access', (req, res) => {
-    const { uid, accessLevel, expiresAt } = req.body;
+    let { uid, accessLevel, expiresAt } = req.body;
+
+    // Assuming UID is provided in hexadecimal format, convert it to decimal
+    uid = parseInt(uid, 16).toString();
+
     let records = [];
 
     // Read existing records
@@ -21,21 +25,23 @@ app.post('/add-access', (req, res) => {
         records = parse(fileContent, { columns: true, skip_empty_lines: true });
     }
 
-    // Add new record
+    // Add new record with UID as decimal
     records.push({ uid, accessLevel, expiresAt });
 
     // Write updated records to CSV
     const csvString = stringify(records, { header: true });
     fs.writeFileSync(csvFilePath, csvString);
 
-    res.json({ message: "Access right added successfully" });
+    res.json({ message: "Access right added successfully with UID in decimal format." });
 });
 
 app.post('/check-access', (req, res) => {
     const { uid } = req.body;
 
-    // Log when the route is hit and the UID received
-    console.log(`Received access check request for UID: ${uid}`);
+    // Convert UID to lowercase for comparison
+    const formattedUID = uid.toLowerCase();
+
+    console.log(`Received access check request for UID: ${formattedUID}`);
 
     let accessGranted = false;
     let accessLevel = 'none';
@@ -48,7 +54,7 @@ app.post('/check-access', (req, res) => {
             const records = parse(fileContent, { columns: true, skip_empty_lines: true });
 
             // Check if UID has access
-            const record = records.find(record => record.uid === uid && (record.expiresAt === "never" || new Date(record.expiresAt) > new Date()));
+            const record = records.find(record => record.uid === formattedUID && (record.expiresAt === "never" || new Date(record.expiresAt) > new Date()));
             if (record) {
                 accessGranted = true;
                 accessLevel = record.accessLevel;
@@ -56,18 +62,15 @@ app.post('/check-access', (req, res) => {
             }
         }
 
-        // Log the result of the access check
-        console.log(`Access check for UID ${uid}: ${message}`);
+        console.log(`Access check for UID ${formattedUID}: ${message}`);
     } catch (error) {
-        // Log any errors encountered during the process
-        console.error(`Error checking access for UID ${uid}:`, error);
+        console.error(`Error checking access for UID ${formattedUID}:`, error);
         message = "Error processing request";
     }
 
     // Respond with access status
     res.json({ accessGranted, accessLevel, message });
 });
-
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

@@ -9,16 +9,27 @@ function toggleExpiryInput() {
 
 document.getElementById('access-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    const uid = document.getElementById('uid').value;
+    const uidInput = document.getElementById('uid');
+    const hexUid = uidInput.value;
+    // Convert hex UID to decimal
+    const decimalUid = parseInt(hexUid, 16).toString();
+
     const accessLevel = document.getElementById('access-level').value;
     const expiresAt = document.getElementById('set-expiry').checked ? document.getElementById('expires-at').value : "never";
+
+    // Validate hex input
+    if (isNaN(decimalUid)) {
+        console.error('Invalid UID: UID must be a hexadecimal string.');
+        uidInput.focus(); // Focus on the UID input field for correction
+        return; // Stop the form submission
+    }
 
     fetch('/add-access', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ uid, accessLevel, expiresAt }),
+        body: JSON.stringify({ uid: decimalUid, accessLevel, expiresAt }),
     })
     .then(response => response.json())
     .then(data => {
