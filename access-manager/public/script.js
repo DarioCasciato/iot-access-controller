@@ -1,8 +1,10 @@
-function toggleExpiryInput() {
+function toggleExpiryInput()
+{
     const checkBox = document.getElementById("set-expiry");
     const expiryInput = document.getElementById("expires-at");
     expiryInput.disabled = !checkBox.checked;
-    if (!checkBox.checked) {
+    if (!checkBox.checked)
+    {
         expiryInput.value = '';
     }
 }
