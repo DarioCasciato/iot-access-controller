@@ -7,12 +7,14 @@ function toggleExpiryInput() {
     }
 }
 
-document.getElementById('access-form').addEventListener('submit', function(e) {
+document.getElementById('access-form').addEventListener('submit', function(e)
+{
     e.preventDefault();
     const uidInput = document.getElementById('uid');
     const hexUid = uidInput.value.trim();
 
-    if (!/^[0-9a-fA-F]+$/.test(hexUid)) {
+    if (!/^[0-9a-fA-F]+$/.test(hexUid))
+    {
         console.error('Invalid UID: UID must be a hexadecimal string.');
         alert('Invalid UID: UID must be a hexadecimal string.');
         uidInput.focus();
@@ -22,23 +24,27 @@ document.getElementById('access-form').addEventListener('submit', function(e) {
     const accessLevel = document.getElementById('access-level').value;
     const expiresAt = document.getElementById('set-expiry').checked ? document.getElementById('expires-at').value : "never";
 
-    fetch('/add-access', {
+    fetch('/add-access',
+    {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ uid: hexUid, accessLevel, expiresAt })
     })
-    .then(response => {
+    .then(response =>
+    {
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
     })
-    .then(data => {
+    .then(data =>
+    {
         console.log('Success:', data);
         alert('Access right added successfully.');
         uidInput.value = '';
         document.getElementById('expires-at').value = '';
         document.getElementById('set-expiry').checked = false;
     })
-    .catch(error => {
+    .catch(error =>
+    {
         console.error('Error:', error);
         alert('Error adding access right.');
     });
