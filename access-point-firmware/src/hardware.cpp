@@ -14,11 +14,16 @@ namespace Hardware
 
     // signalization
     Buzzer buzzer((uint8_t)Port::Buzzer);
+    NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> led(1, (uint8_t)Port::LED);
+
 
     void init() // Initialize hardware, function is called once on startup
     {
         SPI.begin(); // Init SPI bus
         reader.PCD_Init(); // Init RFID reader
+
+        led.Begin(); // Init LED
+        led.ClearTo(0); // Clear LED
     }
 
     void updateHardware() // Fetch hardware values, function is called every loop

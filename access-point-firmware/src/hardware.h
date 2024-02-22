@@ -8,7 +8,8 @@
 #include <Arduino.h>
 #include "configurations.h"
 #include "../utils/Arduino/gpio.h"
-#include <MFRC522.h>
+#include "../.pio/libdeps/nodemcu/MFRC522/src/MFRC522.h"
+#include "../.pio/libdeps/nodemcu/NeoPixelBus/src/NeoPixelBus.h"
 
 
 // Include all hardware drivers here as absolute paths
@@ -36,6 +37,7 @@ namespace Hardware
 
     // signalization
     extern Buzzer buzzer;
+    extern NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> led;
 
 
     /// @brief Initializes hardware

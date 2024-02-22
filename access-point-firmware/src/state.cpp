@@ -5,14 +5,13 @@
 #include <inttypes.h>
 #include "state.h"
 #include "hardware.h"
-#include "Timer.h"
-#include "Flash.h"
 #include "Logging.h"
 #include "RFID.h"
-#include "../utils/Connectivity/APIHandler/APIHandler.h"
-#include "../utils/Connectivity/ESPWiFi/espWiFi.h"
+#include "Connectivity.h"
+#include "Signal.h"
 
-void checkAccess(const String& uid);
+
+bool checkAccess(const String& uid);
 
 //------------------------------------------------------------------------------
 
@@ -47,7 +46,16 @@ namespace State
             Logging::log("Tag detected! UID: %x", RFID::getUID());
 
             Logging::log("Checking access...");
-            checkAccess(String(RFID::getUID()));
+            if(checkAccess(String(RFID::getUID())))
+            {
+                Logging::log("Access granted!");
+                Signal::granted();
+            }
+            else
+            {
+                Logging::log("Access denied!");
+                Signal::denied();
+            }
         }
     }
 
@@ -62,9 +70,7 @@ namespace State
 // Other Functions
 
 
-
-
-void checkAccess(const String& uid)
+bool checkAccess(const String& uid)
 {
     String serverUrl = "http://192.168.1.153:3000/check-access"; // Replace with your actual server URL
     String payload = "{\"uid\":\"" + uid + "\"}";
@@ -76,32 +82,30 @@ void checkAccess(const String& uid)
         Wifi::establish();
     }
 
-    if (APIHandler::post(serverUrl, payload, response))
+    if (!APIHandler::post(serverUrl, payload, response))
     {
-        // Parse JSON response
-        bool accessGranted;
-        String accessLevel;
-        if (APIHandler::JSON::extract(response, "accessGranted", &accessGranted))
-        {
-            if (accessGranted)
-            {
-                APIHandler::JSON::extract(response, "accessLevel", &accessLevel); // Optional: Extract access level if needed
-                Logging::log("Access Granted! Level: %s", accessLevel.c_str());
-                // Handle access granted (e.g., open a door)
-            }
-            else
-            {
-                Logging::log("Access Denied.");
-                // Handle access denied
-            }
-        }
-        else
-        {
-            Logging::log("Failed to parse response.");
-        }
+        Logging::log("Failed to send request or receive response.");
+        return false;
+    }
+
+    // Parse JSON response
+    bool accessGranted;
+    String accessLevel;
+    if (!APIHandler::JSON::extract(response, "accessGranted", &accessGranted))
+    {
+        Logging::log("Failed to parse response.");
+        return false;
+    }
+
+    if (accessGranted)
+    {
+        APIHandler::JSON::extract(response, "accessLevel", &accessLevel); // Optional: Extract access level if needed
+        // Handle access granted (e.g., open a door)
+        return true;
     }
     else
     {
-        Logging::log("Failed to send request or receive response.");
+        // Handle access denied
+        return false;
     }
 }
