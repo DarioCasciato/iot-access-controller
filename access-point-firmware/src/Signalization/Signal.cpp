@@ -27,6 +27,9 @@ namespace Signal
         Hardware::led.SetPixelColor(0, off);
         Hardware::led.Show();
         Hardware::buzzer.pause();
+
+        Hardware::led.ClearTo(1);
+        Hardware::led.Show();
     }
 
     void denied()
@@ -43,14 +46,20 @@ namespace Signal
             Hardware::buzzer.pause();
             delay(120);
         }
+
+        Hardware::led.ClearTo(1);
+        Hardware::led.Show();
     }
 
     void connectionEstablished()
     {
         Hardware::led.SetPixelColor(0, blue);
         Hardware::led.Show();
-        delay(150);
+        delay(750);
         Hardware::led.SetPixelColor(0, off);
+        Hardware::led.Show();
+
+        Hardware::led.ClearTo(1);
         Hardware::led.Show();
     }
 
@@ -66,5 +75,8 @@ namespace Signal
         Hardware::led.SetPixelColor(0, off);
         Hardware::led.Show();
         Hardware::buzzer.pause();
+
+        Hardware::led.ClearTo(1);
+        Hardware::led.Show();
     }
 } // namespace Signal

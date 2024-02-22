@@ -6,7 +6,7 @@
 #ifndef CONNECTIVITY_H
 #define CONNECTIVITY_H
 
-#include "../utils/Connectivity/APIHandler/APIHandler.h"
-#include "../utils/Connectivity/ESPWiFi/espWiFi.h"
+#include "APIHandler/APIHandler.h"
+#include "ESPWiFi/espWiFi.h"
 
 #endif // CONNECTIVITY_H

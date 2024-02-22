@@ -1,1 +1,7 @@
-uid,accessGranted,accessLevel,timestamp
+uid,accessDecision,accessLevel,timestamp
+b44bca51,Denied,none,2024-02-22T21:50:39.145Z
+3024865873,Denied,none,2024-02-22T21:51:18.046Z
+3024865873,Denied,none,2024-02-22T21:52:57.539Z
+b44bca51,Granted,admin,2024-02-22T21:53:37.701Z
+b44bca51,Granted,admin,2024-02-22T21:53:47.580Z
+13e60c43,Granted,none,2024-02-22T21:53:50.763Z
