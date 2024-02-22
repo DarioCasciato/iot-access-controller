@@ -37,7 +37,7 @@ namespace Hardware
 
     // signalization
     extern Buzzer buzzer;
-    extern NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> led;
+    extern NeoPixelBus<NeoRgbwFeature, NeoEsp8266BitBangSk6812Method> led;
 
 
     /// @brief Initializes hardware

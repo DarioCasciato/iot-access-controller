@@ -9,10 +9,10 @@
 
 namespace
 {
-    RgbColor red(255, 0, 0); // Red
-    RgbColor green(0, 255, 0); // Green
-    RgbColor blue(0, 0, 255); // Blue
-    RgbColor off(0, 0, 0); // Off
+    RgbwColor red(255, 0, 0, 0); // Red
+    RgbwColor green(0, 255, 0, 0); // Green
+    RgbwColor blue(0, 0, 255, 0); // Blue
+    RgbwColor off(0, 0, 0, 0); // Off
 }
 
 
