@@ -10,6 +10,19 @@ app.use(express.static('../public')); // Serve static files
 app.use(bodyParser.json()); // for parsing application/json
 
 const csvFilePath = 'access-rights.csv';
+const logFilePath = 'access-log.csv'; // Path for the access log CSV file
+
+// Function to append log entry to the access log CSV
+function appendLogEntry(uid, accessGranted, accessLevel) {
+    const timestamp = new Date().toISOString();
+    const logEntry = [{ uid, accessGranted, accessLevel, timestamp }];
+
+    // Check if log file exists to determine if headers are needed
+    const includeHeaders = !fs.existsSync(logFilePath);
+
+    const csvString = stringify(logEntry, { header: includeHeaders, columns: ['uid', 'accessGranted', 'accessLevel', 'timestamp'] });
+    fs.appendFileSync(logFilePath, csvString);
+}
 
 app.post('/add-access', (req, res) => {
     let { uid, accessLevel, expiresAt } = req.body;
@@ -37,8 +50,6 @@ app.post('/add-access', (req, res) => {
 
 app.post('/check-access', (req, res) => {
     const { uid } = req.body;
-
-    // Convert UID to lowercase for comparison
     const formattedUID = uid.toLowerCase();
 
     console.log(`Received access check request for UID: ${formattedUID}`);
@@ -48,12 +59,10 @@ app.post('/check-access', (req, res) => {
     let message = "Access Denied";
 
     try {
-        // Read existing records
         if (fs.existsSync(csvFilePath)) {
             const fileContent = fs.readFileSync(csvFilePath);
             const records = parse(fileContent, { columns: true, skip_empty_lines: true });
 
-            // Check if UID has access
             const record = records.find(record => record.uid === formattedUID && (record.expiresAt === "never" || new Date(record.expiresAt) > new Date()));
             if (record) {
                 accessGranted = true;
@@ -67,6 +76,9 @@ app.post('/check-access', (req, res) => {
         console.error(`Error checking access for UID ${formattedUID}:`, error);
         message = "Error processing request";
     }
+
+    // Append log entry for the access check
+    appendLogEntry(formattedUID, accessGranted, accessLevel);
 
     // Respond with access status
     res.json({ accessGranted, accessLevel, message });
