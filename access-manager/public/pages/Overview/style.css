@@ -1,13 +1,13 @@
 @font-face {
-  font-family: "YourFontName"; /* A name to use later */
-  src: url("path/to/your-font-file.otf") format("opentype"); /* Path to your OTF font file */
+  font-family: "1dormakaba"; /* A name to use later */
+  src: url("../../assets/fonts/1dormakaba-Regular.otf") format("opentype"); /* Path to your OTF font file */
 }
 html, body {
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  font-family: "YourFontName", sans-serif;
+  font-family: "1dormakaba", sans-serif;
 }
 html .header, body .header {
   height: 50px;
@@ -30,6 +30,11 @@ html .header .titlelogo img.logo, body .header .titlelogo img.logo {
   width: auto;
   color: #ffffff;
 }
+html h1, body h1 {
+  margin-top: 30px;
+  margin-left: 50px;
+  font-size: 30px;
+}
 html .pages, body .pages {
   width: 60%;
   display: flex;
@@ -45,12 +50,16 @@ html .pages a, body .pages a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 180px;
+  width: 190px;
   height: 140px;
   text-decoration: none;
   border-radius: 10px;
   box-shadow: 0px 0px 15px 10px rgba(49, 49, 49, 0.1);
   transition: all 0.3s ease;
+}
+html .pages a p, body .pages a p {
+  margin-top: auto;
+  margin-bottom: 20px;
 }
 html .pages a:hover, body .pages a:hover {
   transform: scale(1.05);

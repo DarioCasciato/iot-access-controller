@@ -1,0 +1,55 @@
+@font-face {
+    font-family: '1dormakaba'; /* A name to use later */
+    src: url('../../assets/fonts/1dormakaba-Regular.otf') format('opentype'); /* Path to your OTF font file */
+}
+
+// Variables
+$primary-blue: #003594;
+$primary-white: #ffffff;
+
+// body
+html, body
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: '1dormakaba', sans-serif;
+
+    .header
+    {
+        height: 50px;
+        background-color: $primary-blue;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        a.home
+        {
+            margin-left: 50px;
+            color: $primary-white;
+            text-decoration: none;
+        }
+
+        .titlelogo
+        {
+            margin-right: 50px;
+
+            img.logo
+            {
+                height: 18px;
+                width: auto;
+                color: $primary-white;
+            }
+        }
+    }
+
+    h1
+    {
+        margin-top: 30px;
+        margin-left: 50px;
+        font-size: 30px;
+    }
+
+}

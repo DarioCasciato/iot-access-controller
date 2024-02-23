@@ -1,1 +1,37 @@
-/*# sourceMappingURL=style.css.map */
+@font-face {
+  font-family: "1dormakaba"; /* A name to use later */
+  src: url("../../assets/fonts/1dormakaba-Regular.otf") format("opentype"); /* Path to your OTF font file */
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "1dormakaba", sans-serif;
+}
+html .header, body .header {
+  height: 50px;
+  background-color: #003594;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+html .header a.home, body .header a.home {
+  margin-left: 50px;
+  color: #ffffff;
+  text-decoration: none;
+}
+html .header .titlelogo, body .header .titlelogo {
+  margin-right: 50px;
+}
+html .header .titlelogo img.logo, body .header .titlelogo img.logo {
+  height: 18px;
+  width: auto;
+  color: #ffffff;
+}
+html h1, body h1 {
+  margin-top: 30px;
+  margin-left: 50px;
+  font-size: 30px;
+}/*# sourceMappingURL=style.css.map */
