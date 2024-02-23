@@ -4,6 +4,7 @@
 
 #include <Arduino.h>
 #include "Access.h"
+#include "configurations.h"
 #include "../../utils/Connectivity/Connectivity.h"
 
 
@@ -11,8 +12,8 @@ namespace Access
 {
     ResponseStatus request(const String& uid)
     {
-        String serverUrl = "http://192.168.1.153:3000/check-access"; // Replace with your actual server URL
-        String payload = "{\"uid\":\"" + uid + "\"}";
+        String serverUrl = "http://" + serverIP + "/check-access"; // Replace with your actual server URL
+        String payload = "{\"deviceId\":\"" + deviceID + "\",\"uid\":\"" + uid + "\"}";
         String response;
 
         // check wifi connection
