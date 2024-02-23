@@ -1,5 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetchLogs();
+    Promise.all([
+        fetch('/api/logs').then(response => response.json()),
+        fetch('/api/access-points').then(response => response.json())
+    ])
+    .then(([logs, accessPoints]) => {
+        // Create a map of device IDs to names
+        const deviceNameMap = new Map(accessPoints.map(point => [point.deviceID, point.name]));
+        // Add device names to logs
+        const logsWithDeviceName = logs.map(log => ({
+            ...log,
+            deviceName: deviceNameMap.get(log.deviceID) || 'Unknown Device'
+        }));
+        displayLogs(logsWithDeviceName);
+        populateFilters(logs);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 });
 
 // Fetch logs from the server
@@ -28,9 +45,10 @@ function displayLogs(logs) {
     logs.forEach(log => {
         const row = tableBody.insertRow();
         row.insertCell(0).textContent = log.deviceID;
-        row.insertCell(1).textContent = log.userIndex;
-        row.insertCell(2).textContent = log.accessDecision;
-        row.insertCell(3).textContent = formatTimestamp(log.timestamp);
+        row.insertCell(1).textContent = log.deviceName; // Display device name
+        row.insertCell(2).textContent = log.userIndex;
+        row.insertCell(3).textContent = log.accessDecision;
+        row.insertCell(4).textContent = formatTimestamp(log.timestamp);
     });
 }
 

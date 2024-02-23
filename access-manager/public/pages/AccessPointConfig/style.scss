@@ -52,4 +52,29 @@ html, body
         font-size: 30px;
     }
 
+    .editable {
+        cursor: pointer;
+        // Style as needed
+    }
+
+    table {
+        margin: 20px 50px;
+        width: calc(100% - 100px); // Adjust based on the margin
+        border-collapse: collapse;
+        table-layout: fixed;
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: $primary-blue;
+            color: $primary-white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    }
 }

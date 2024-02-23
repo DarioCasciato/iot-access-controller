@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+app.use(express.json());
 
 // Import routes
 const accessPointsRoutes = require('./Routes/accessPoints');
@@ -15,7 +16,7 @@ const usersRoutes = require('./Routes/users');
 app.use(express.static('public'));
 
 // Use imported routes
-//app.use('/api/access-points', accessPointsRoutes);
+app.use('/api/access-points', accessPointsRoutes);
 //app.use('/api/assignments', assignmentsRoutes);
 app.use('/api/logs', logsRoutes);
 //app.use('/api/users', usersRoutes);
