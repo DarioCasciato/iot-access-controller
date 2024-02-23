@@ -4,8 +4,21 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+
+// Import routes
+const accessPointsRoutes = require('./Routes/accessPoints');
+const assignmentsRoutes = require('./Routes/assignments');
+const logsRoutes = require('./Routes/logs');
+const usersRoutes = require('./Routes/users');
+
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
+
+// Use imported routes
+//app.use('/api/access-points', accessPointsRoutes);
+//app.use('/api/assignments', assignmentsRoutes);
+app.use('/api/logs', logsRoutes);
+//app.use('/api/users', usersRoutes);
 
 // Serve the Overview page as the landing page
 app.get('/', (req, res) => {

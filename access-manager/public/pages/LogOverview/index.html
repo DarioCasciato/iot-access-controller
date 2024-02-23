@@ -16,6 +16,34 @@
     <h1>Log Overview</h1>
 
 
+    <div class="filters">
+        <input list="deviceIds" id="filterDeviceId" placeholder="Filter by Device ID">
+        <datalist id="deviceIds">
+            <!-- Device IDs options will be populated here -->
+        </datalist>
+
+        <input list="userIndices" id="filterUserIndex" placeholder="Filter by User Index">
+        <datalist id="userIndices">
+            <!-- User indices options will be populated here -->
+        </datalist>
+
+        <button onclick="filterLogs()">Filter</button>
+    </div>
+
+    <table id="logTable">
+        <thead>
+            <tr>
+                <th>Device ID</th>
+                <th>User Index</th>
+                <th>Access Decision</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Log entries will be inserted here -->
+        </tbody>
+    </table>
+
     <script src="script.js"></script>
 </body>
 </html>

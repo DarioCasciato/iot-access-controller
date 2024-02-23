@@ -7,17 +7,14 @@
 $primary-blue: #003594;
 $primary-white: #ffffff;
 
-// body
-html, body
-{
+html, body {
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     font-family: '1dormakaba', sans-serif;
 
-    .header
-    {
+    .header {
         height: 50px;
         background-color: $primary-blue;
         display: flex;
@@ -25,19 +22,16 @@ html, body
         justify-content: space-between;
         align-items: center;
 
-        a.home
-        {
+        a.home {
             margin-left: 50px;
             color: $primary-white;
             text-decoration: none;
         }
 
-        .titlelogo
-        {
+        .titlelogo {
             margin-right: 50px;
 
-            img.logo
-            {
+            img.logo {
                 height: 18px;
                 width: auto;
                 color: $primary-white;
@@ -45,11 +39,39 @@ html, body
         }
     }
 
-    h1
-    {
+    h1 {
         margin-top: 30px;
         margin-left: 50px;
         font-size: 30px;
     }
 
+    .filters {
+        display: flex;
+        margin: 20px 50px;
+        gap: 10px;
+
+        button {
+            cursor: pointer;
+        }
+    }
+
+    table {
+        margin: 20px 50px;
+        width: calc(100% - 100px); // Adjust based on the margin
+        border-collapse: collapse;
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: $primary-blue;
+            color: $primary-white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    }
 }

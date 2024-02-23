@@ -1,0 +1,1 @@
+- in logs, display device name instead of device id
