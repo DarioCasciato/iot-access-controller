@@ -45,12 +45,30 @@ function displayLogs(logs) {
     logs.forEach(log => {
         const row = tableBody.insertRow();
         row.insertCell(0).textContent = log.deviceID;
-        row.insertCell(1).textContent = log.deviceName; // Display device name
+        row.insertCell(1).textContent = log.deviceName; // Assuming this is already implemented
         row.insertCell(2).textContent = log.userIndex;
-        row.insertCell(3).textContent = log.accessDecision;
+
+        const decisionCell = row.insertCell(3);
+        decisionCell.textContent = log.accessDecision;
+        // Add class based on the access decision
+        if (log.accessDecision === 'Granted') {
+            decisionCell.classList.add('granted');
+        } else if (log.accessDecision === 'Denied') {
+            decisionCell.classList.add('denied');
+        }
+
+        // Inside the displayLogs function, when adding class based on the access decision
+        const decision = log.accessDecision.toLowerCase();
+        if (decision === 'granted') {
+            decisionCell.classList.add('granted');
+        } else if (decision === 'denied') {
+            decisionCell.classList.add('denied');
+        }
+
         row.insertCell(4).textContent = formatTimestamp(log.timestamp);
     });
 }
+
 
 // Filter logs based on inputs
 function filterLogs() {
