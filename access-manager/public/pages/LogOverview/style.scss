@@ -50,8 +50,37 @@ html, body {
         margin: 20px 50px;
         gap: 10px;
 
+        input {
+            border: 2px solid black;
+            padding: 8px 10px;
+            border-radius: 5px; // Rounded corners for inputs
+            font-size: 16px; // Slightly larger font size for readability
+
+            &:focus {
+                outline: none; // Removes the default focus outline
+                border-color: $primary-blue; // Highlight with primary color on focus
+            }
+        }
+
         button {
-            cursor: pointer;
+            background-color: $primary-blue;
+            color: $primary-white;
+            padding: 8px 15px;
+            // blue border
+            border: 2px solid $primary-blue;
+            border-radius: 5px; // Consistent with inputs
+            font-size: 16px;
+            transition: background-color 0.3s; // Smooth transition for hover effect
+
+            &:hover {
+                background-color: $primary-white; // Darker shade on hover
+                color: $primary-blue; // Text color change on hover
+                cursor: pointer;
+            }
+
+            &:focus {
+                outline: none; // Removes the default focus outline
+            }
         }
     }
 

@@ -40,8 +40,32 @@ html .filters, body .filters {
   margin: 20px 50px;
   gap: 10px;
 }
+html .filters input, body .filters input {
+  border: 2px solid black;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+html .filters input:focus, body .filters input:focus {
+  outline: none;
+  border-color: #003594;
+}
 html .filters button, body .filters button {
+  background-color: #003594;
+  color: #ffffff;
+  padding: 8px 15px;
+  border: 2px solid #003594;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+html .filters button:hover, body .filters button:hover {
+  background-color: #ffffff;
+  color: #003594;
   cursor: pointer;
+}
+html .filters button:focus, body .filters button:focus {
+  outline: none;
 }
 html table, body table {
   margin: 20px 50px;
