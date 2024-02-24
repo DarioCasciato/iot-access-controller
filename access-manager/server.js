@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fetch = require('node-fetch');
 
 const app = express();
 const port = 3000;
@@ -45,6 +46,37 @@ app.get('/log-overview', (req, res) => {
 app.get('/user-creation', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/pages/UserCreation/index.html'));
 });
+
+
+// Helper function to enforce a timeout
+function fetchWithTimeout(url, options, timeout = 450) { // Default timeout of 5000 ms
+    return Promise.race([
+        fetch(url, options),
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Request timed out')), timeout)
+        )
+    ]);
+}
+
+// Modified endpoint with timeout
+app.get('/api/device-scan/:ip', async (req, res) => {
+    const ip = req.params.ip;
+    const url = `http://${ip}/getdeviceid`;
+
+    try {
+        // Use the fetchWithTimeout helper with a custom timeout
+        const response = await fetchWithTimeout(url, {}, 100);
+        if (!response.ok) {
+            throw new Error(`Request to ${url} failed with status: ${response.status}`);
+        }
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: `Failed to scan device at ${ip}: ${error.message}` });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

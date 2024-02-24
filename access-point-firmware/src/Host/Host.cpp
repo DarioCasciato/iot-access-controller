@@ -11,8 +11,13 @@
 #include "../hardware.h"
 #include "Signal.h"
 
+
 ESP8266WebServer server(80);
 
+namespace
+{
+    const String jsonString = "{\"deviceID\":\"" + deviceID + "\"}";
+}
 
 namespace Host
 {
@@ -20,13 +25,14 @@ namespace Host
     {
         server.on("/ping", []()
         {
-            Signal::ping();
+            server.sendHeader("Access-Control-Allow-Origin", "*"); // Add this line
             server.send(200, "text/plain", "pong");
+            Signal::ping();
         });
 
         server.on("/getdeviceid", []()
         {
-            String jsonString = "{\"deviceID\":\"" + deviceID + "\"}";
+            server.sendHeader("Access-Control-Allow-Origin", "*"); // Add this line
             server.send(200, "application/json", jsonString);
         });
 
