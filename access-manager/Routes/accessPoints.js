@@ -1,13 +1,13 @@
 const express = require('express');
 const fs = require('fs');
-const { parse } = require('csv-parse/sync'); // Corrected import
+const { parse } = require('csv-parse/sync');
 const { stringify } = require('csv-stringify/sync');
 const path = require('path');
 const router = express.Router();
 
 const accessPointsFilePath = path.join(__dirname, '..', 'data', 'access-points.csv');
 
-// Example route to get all access points
+// Route to get all access points, including their IPs
 router.get('/', (req, res) => {
     fs.readFile(accessPointsFilePath, (err, fileData) => {
         if (err) {
@@ -19,50 +19,42 @@ router.get('/', (req, res) => {
     });
 });
 
+// Route to update an existing access point or add a new one
 router.post('/update', (req, res) => {
-    const { deviceID, newName, newNotes } = req.body;
+    const { deviceID, ip, newName, newNotes } = req.body;
 
     try {
         const csvData = fs.readFileSync(accessPointsFilePath, 'utf8');
         let records = parse(csvData, { columns: true, skip_empty_lines: true });
 
-        // Check if device already exists
         const index = records.findIndex(record => record.deviceID === deviceID);
         if (index === -1) {
             // Add new device if it doesn't exist
-            records.push({ deviceID, name: newName, notes: newNotes });
+            records.push({ deviceID, ip, name: newName, notes: newNotes });
         } else {
-            // Update existing device's name and notes
-            records[index] = { ...records[index], name: newName, notes: newNotes };
+            // Update existing device's name, notes, and IP
+            records[index] = { ...records[index], ip, name: newName, notes: newNotes };
         }
 
         const updatedCsvData = stringify(records, { header: true });
         fs.writeFileSync(accessPointsFilePath, updatedCsvData, 'utf8');
 
-        res.json({ message: 'Device added or updated successfully' });
+        res.json({ message: 'Access point updated successfully' });
     } catch (error) {
-        console.error('Failed to add or update device:', error);
-        res.status(500).json({ message: 'Failed to add or update device' });
+        console.error('Failed to update access point:', error);
+        res.status(500).json({ message: 'Failed to update access point' });
     }
 });
 
+// Route to delete an access point
 router.post('/delete', (req, res) => {
-    const { deviceID } = req.body; // Extract the deviceID to delete
+    const { deviceID } = req.body;
 
     try {
-        // Read the current list of access points
         const csvData = fs.readFileSync(accessPointsFilePath, 'utf8');
         let records = parse(csvData, { columns: true, skip_empty_lines: true });
 
-        // Filter out the device to delete
         const updatedRecords = records.filter(record => record.deviceID !== deviceID);
-
-        // Check if the length of records changed to confirm deletion
-        if (records.length === updatedRecords.length) {
-            return res.status(404).json({ message: 'Device not found' });
-        }
-
-        // Convert the updated list back to CSV and save it
         const updatedCsvData = stringify(updatedRecords, { header: true });
         fs.writeFileSync(accessPointsFilePath, updatedCsvData, 'utf8');
 

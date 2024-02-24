@@ -11,62 +11,61 @@ function fetchAccessPoints() {
         .catch(error => console.error('Error fetching access points:', error));
 }
 
-function populateAccessPointsTable(accessPoints) {
-    const tableBody = document.getElementById('accessPointsTable').querySelector('tbody');
-    tableBody.innerHTML = ''; // Clear existing table content
 
-    accessPoints.forEach(point => {
-        const row = tableBody.insertRow();
-        row.insertCell(0).textContent = point.deviceID;
+function makeCellEditable(cell, deviceID, field, originalValue) {
+    cell.onclick = function() {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = originalValue;
+        input.onblur = function() {
+            const newValue = input.value.trim();
+            if (newValue !== originalValue) { // Only update if value has changed
+                updateAccessPoint(deviceID, field, newValue);
+            }
+            cell.textContent = newValue; // Update cell text regardless of change
+            cell.onclick = null; // Re-enable the onclick event
+            makeCellEditable(cell, deviceID, field, newValue); // Reattach editable functionality
+        };
+        cell.innerHTML = ''; // Clear cell content
+        cell.appendChild(input);
+        input.focus(); // Focus on the new input
+        cell.onclick = null; // Disable onclick event to avoid recursion
+    };
+}
 
-        // Name cell with inline editing
-        const nameCell = row.insertCell(1);
-        nameCell.textContent = point.name;
-        nameCell.setAttribute('contenteditable', 'true');
-        nameCell.classList.add('editable');
+function updateAccessPoint(deviceID, field, newValue) {
+    const body = { deviceID };
+    body[field] = newValue; // Dynamically set which field to update
 
-        // Notes cell with inline editing
-        const notesCell = row.insertCell(2);
-        notesCell.textContent = point.notes || "";
-        notesCell.setAttribute('contenteditable', 'true');
-        notesCell.classList.add('editable');
-
-        // Actions cell
-        const actionsCell = row.insertCell(3); // Create an actions cell
-
-        // Identify button for registered devices
-        const identifyButton = document.createElement('button');
-        identifyButton.textContent = 'Identify';
-        identifyButton.addEventListener('click', () => identifyDevice(point.ip));
-        actionsCell.appendChild(identifyButton);
-
-        // Delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete-button');
-        deleteButton.onclick = () => deleteAccessPoint(point.deviceID);
-        actionsCell.appendChild(deleteButton); // Append to actionsCell, not deleteCell
+    fetch('/api/access-points/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message); // Log success message
+        // Optionally refresh or display a message
+    })
+    .catch(error => {
+        console.error('Error updating access point:', error);
+        // Optionally display error message
     });
 }
 
 
-function updateAccessPoint(deviceID, newName, newNotes) {
-    fetch('/api/access-points/update', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ deviceID, newName, newNotes })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log(data.message);
-        // Optionally refresh the list or indicate success to the user
-    })
-    .catch(error => console.error('Error updating access point:', error));
+function appendActionButtons(actionsCell, point) {
+    // Append Identify button
+    const identifyButton = document.createElement('button');
+    identifyButton.textContent = 'Identify';
+    identifyButton.onclick = () => identifyDevice(point.ip);
+    actionsCell.appendChild(identifyButton);
+
+    // Append Delete button
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.onclick = () => deleteAccessPoint(point.deviceID);
+    actionsCell.appendChild(deleteButton);
 }
 
 document.getElementById('scanDevices').addEventListener('click', scanForDevices);
@@ -127,39 +126,52 @@ function updateProgressBar(percentage) {
 }
 
 
-function displayFoundDevices(foundDevices) {
-    const foundDevicesDiv = document.getElementById('foundDevices');
-    foundDevicesDiv.innerHTML = ''; // Clear previous results
+function populateAccessPointsTable(accessPoints) {
+    const tableBody = document.getElementById('accessPointsTable').querySelector('tbody');
+    tableBody.innerHTML = ''; // Clear existing table content
 
-    foundDevices.forEach(device => {
-        const deviceElement = document.createElement('div');
-        deviceElement.textContent = `Device ID: ${device.deviceID} (IP: ${device.ip}) `;
+    accessPoints.forEach(point => {
+        const row = tableBody.insertRow();
+        row.insertCell(0).textContent = point.deviceID;
 
-        // Add to System button
-        const addButton = document.createElement('button');
-        addButton.textContent = 'Add to System';
-        addButton.addEventListener('click', () => addDeviceToSystem(device.deviceID));
-        deviceElement.appendChild(addButton);
+        // Editable Name Cell
+        const nameCell = row.insertCell(1);
+        nameCell.textContent = point.name;
+        makeCellEditable(nameCell, point.deviceID, 'name', point.name);
 
-        // Identify button
+        // Editable Notes Cell
+        const notesCell = row.insertCell(2);
+        notesCell.textContent = point.notes || "";
+        makeCellEditable(notesCell, point.deviceID, 'notes', point.notes || "");
+
+        // Create the "Actions" cell
+        const actionsCell = row.insertCell(3);
+        actionsCell.classList.add('actions-cell'); // Add a class for styling if needed
+
+        // Add "Identify" button
         const identifyButton = document.createElement('button');
         identifyButton.textContent = 'Identify';
-        identifyButton.addEventListener('click', () => identifyDevice(device.ip));
-        deviceElement.appendChild(identifyButton);
+        identifyButton.onclick = () => identifyDevice(point.ip); // Assuming identifyDevice function accepts ip address
+        actionsCell.appendChild(identifyButton);
 
-        foundDevicesDiv.appendChild(deviceElement);
+        // Add "Delete" button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = () => deleteAccessPoint(point.deviceID); // Assuming deleteAccessPoint function accepts deviceID
+        actionsCell.appendChild(deleteButton);
     });
 }
 
-function addDeviceToSystem(deviceID) {
-    // Assuming your server expects deviceID, name, and notes for a new device
+
+
+function addDeviceToSystem(deviceID, ip) {  // Make sure to pass the IP here
     const newName = prompt("Enter name for the new device:", "New Device");
     const newNotes = "";
 
     fetch('/api/access-points/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ deviceID, newName, newNotes })
+        body: JSON.stringify({ deviceID, ip, newName, newNotes })  // Include the IP address in the request body
     })
     .then(response => {
         if (!response.ok) {
@@ -169,8 +181,8 @@ function addDeviceToSystem(deviceID) {
     })
     .then(data => {
         console.log(data.message);
-        fetchAccessPoints();
         alert('Device added to the system successfully');
+        fetchAccessPoints(); // Refresh the list of access points
     })
     .catch(error => console.error('Error adding device to system:', error));
 }
@@ -211,4 +223,29 @@ function identifyDevice(ip) {
         .catch(error => {
             console.error('Error sending identify signal:', error);
         });
+}
+
+function displayFoundDevices(foundDevices) {
+    const foundDevicesDiv = document.getElementById('foundDevices');
+    foundDevicesDiv.innerHTML = ''; // Clear previous results
+
+    foundDevices.forEach(device => {
+        const deviceElement = document.createElement('div');
+        deviceElement.textContent = `Device ID: ${device.deviceID} (IP: ${device.ip}) `;
+
+        // Add to System button
+        const addButton = document.createElement('button');
+        addButton.textContent = 'Add to System';
+        // Ensure you're passing both deviceID and ip when adding the device to the system
+        addButton.addEventListener('click', () => addDeviceToSystem(device.deviceID, device.ip));
+        deviceElement.appendChild(addButton);
+
+        // Identify button - sends a ping to the device to identify it
+        const identifyButton = document.createElement('button');
+        identifyButton.textContent = 'Identify';
+        identifyButton.addEventListener('click', () => identifyDevice(device.ip));
+        deviceElement.appendChild(identifyButton);
+
+        foundDevicesDiv.appendChild(deviceElement);
+    });
 }
