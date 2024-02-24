@@ -26,7 +26,8 @@ namespace Host
 
         server.on("/getdeviceid", []()
         {
-            server.send(200, "text/plain", deviceID);
+            String jsonString = "{\"deviceID\":\"" + deviceID + "\"}";
+            server.send(200, "application/json", jsonString);
         });
 
         server.begin();

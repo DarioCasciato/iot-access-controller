@@ -13,6 +13,7 @@ namespace
     RgbwColor green(0, 255, 0, 0); // Green
     RgbwColor blue(0, 0, 255, 0); // Blue
     RgbwColor off(0, 0, 0, 0); // Off
+    RgbwColor white(255, 255, 255, 0); // White
 }
 
 
@@ -82,7 +83,7 @@ namespace Signal
 
     void ping()
     {
-        Hardware::led.SetPixelColor(0, blue);
+        Hardware::led.SetPixelColor(0, white);
         Hardware::led.Show();
         delay(3000);
         Hardware::led.SetPixelColor(0, off);
