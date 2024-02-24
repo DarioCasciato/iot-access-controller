@@ -79,4 +79,13 @@ namespace Signal
         Hardware::led.ClearTo(1);
         Hardware::led.Show();
     }
+
+    void ping()
+    {
+        Hardware::led.SetPixelColor(0, blue);
+        Hardware::led.Show();
+        delay(3000);
+        Hardware::led.SetPixelColor(0, off);
+        Hardware::led.Show();
+    }
 } // namespace Signal

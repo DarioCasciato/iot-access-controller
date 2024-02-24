@@ -27,6 +27,8 @@ bool Wifi::establish()
         if (WiFi.status() == WL_CONNECTED)
         {
             Logging::log("Connected to WiFi!");
+            Logging::log("IP address: ");
+            Serial.println(WiFi.localIP());
             return true;
         }
 

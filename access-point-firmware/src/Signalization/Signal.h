@@ -26,6 +26,10 @@ namespace Signal
     /// @brief Signalization for connection error
     ///
     void connectionError();
+
+    /// @brief signalization for ping
+    ///
+    void ping();
 }
 
 

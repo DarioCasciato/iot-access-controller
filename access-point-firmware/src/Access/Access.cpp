@@ -4,7 +4,7 @@
 
 #include <Arduino.h>
 #include "Access.h"
-#include "configurations.h"
+#include "../configurations.h"
 #include "../../utils/Connectivity/Connectivity.h"
 
 

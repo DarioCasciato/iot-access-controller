@@ -9,6 +9,7 @@
 #include "RFID.h"
 #include "Signal.h"
 #include "Access.h"
+#include "Host/Host.h"
 
 
 //------------------------------------------------------------------------------
@@ -69,6 +70,9 @@ namespace State
                 break;
             }
         }
+
+        // Handle host requests
+        Host::handleClient();
     }
 
     void stateEnd()

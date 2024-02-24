@@ -11,6 +11,7 @@
 #include "RFID.h"
 #include "../utils/Connectivity/ESPWiFi/espWiFi.h"
 #include "Signal.h"
+#include "Host/Host.h"
 
 void refreshData();
 
@@ -29,6 +30,7 @@ void setup()
     Flash::init();
     Hardware::init();
     Wifi::establish();
+    Host::init();
     Signal::connectionEstablished();
 }
 
