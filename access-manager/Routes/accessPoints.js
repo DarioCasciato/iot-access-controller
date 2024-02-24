@@ -46,4 +46,31 @@ router.post('/update', (req, res) => {
     }
 });
 
+router.post('/delete', (req, res) => {
+    const { deviceID } = req.body; // Extract the deviceID to delete
+
+    try {
+        // Read the current list of access points
+        const csvData = fs.readFileSync(accessPointsFilePath, 'utf8');
+        let records = parse(csvData, { columns: true, skip_empty_lines: true });
+
+        // Filter out the device to delete
+        const updatedRecords = records.filter(record => record.deviceID !== deviceID);
+
+        // Check if the length of records changed to confirm deletion
+        if (records.length === updatedRecords.length) {
+            return res.status(404).json({ message: 'Device not found' });
+        }
+
+        // Convert the updated list back to CSV and save it
+        const updatedCsvData = stringify(updatedRecords, { header: true });
+        fs.writeFileSync(accessPointsFilePath, updatedCsvData, 'utf8');
+
+        res.json({ message: 'Device deleted successfully' });
+    } catch (error) {
+        console.error('Failed to delete device:', error);
+        res.status(500).json({ message: 'Failed to delete device' });
+    }
+});
+
 module.exports = router;

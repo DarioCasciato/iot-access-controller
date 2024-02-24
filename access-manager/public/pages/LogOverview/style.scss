@@ -88,6 +88,7 @@ html, body {
         margin: 20px 50px;
         width: calc(100% - 100px); // Adjust based on the margin
         border-collapse: collapse;
+        border-radius: 5px;
 
         th, td {
             text-align: left;

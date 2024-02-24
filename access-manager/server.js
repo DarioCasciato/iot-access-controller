@@ -65,7 +65,7 @@ app.get('/api/device-scan/:ip', async (req, res) => {
 
     try {
         // Use the fetchWithTimeout helper with a custom timeout
-        const response = await fetchWithTimeout(url, {}, 100);
+        const response = await fetchWithTimeout(url, {}, 200);
         if (!response.ok) {
             throw new Error(`Request to ${url} failed with status: ${response.status}`);
         }
