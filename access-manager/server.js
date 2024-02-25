@@ -49,7 +49,7 @@ app.get('/user-creation', (req, res) => {
 
 
 // Helper function to enforce a timeout
-function fetchWithTimeout(url, options, timeout = 450) { // Default timeout of 5000 ms
+function fetchWithTimeout(url, options, timeout = 500) { // Default timeout of 5000 ms
     return Promise.race([
         fetch(url, options),
         new Promise((_, reject) =>

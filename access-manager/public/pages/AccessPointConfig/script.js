@@ -81,6 +81,7 @@ function scanForDevices() {
     .then(response => response.json())
     .then(existingDevices => {
         const registeredDeviceIDs = new Set(existingDevices.map(device => device.deviceID));
+        const registeredIps = new Set(existingDevices.map(device => device.ip));
         const startIp = 1; // Start of your IP range
         const endIp = 254; // End of your IP range
         let currentIp = startIp;
@@ -109,7 +110,8 @@ function scanForDevices() {
                     return response.json();
                 })
                 .then(data => {
-                    if (data.deviceID && !registeredDeviceIDs.has(data.deviceID)) {
+                    // check if deviceID is not registered or ip is not registered
+                    if (data.deviceID && !registeredDeviceIDs.has(data.deviceID) || data.ip && !registeredIps.has(data.ip)) {
                         console.log(`Found unregistered device ID ${data.deviceID} at IP ${ip}`);
                         foundDevices.push({ deviceID: data.deviceID, ip }); // Add to found devices array
                     }
