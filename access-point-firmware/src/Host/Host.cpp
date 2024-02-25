@@ -10,6 +10,10 @@
 
 #include "../hardware.h"
 #include "Signal.h"
+#include "RFID.h"
+#include "Timer.h"
+#include "Logging.h"
+#include "EdgeDetection.h"
 
 
 ESP8266WebServer server(80);
@@ -34,6 +38,43 @@ namespace Host
         {
             server.sendHeader("Access-Control-Allow-Origin", "*"); // Add this line
             server.send(200, "application/json", jsonString);
+        });
+
+        server.on("/getcarduid", []()
+        {
+            Logging::log("getcarduid");
+            Timer timer;
+            timer.start();
+
+            Hardware::led.SetPixelColor(0, RgbwColor(0, 0, 255, 0));
+            Hardware::led.Show();
+
+            while(1)
+            {
+                RFID::updateTagPresence();
+                EdgeDetection::updateEdges();
+                RFID::updateTagUID();
+
+                if(RFID::tagAvailable.getEdgePos())
+                {
+                    const uint32_t uid = RFID::getUID();
+                    const String uidPayload = "{\"uid\":\"" + String(uid) + "\"}";
+                    server.sendHeader("Access-Control-Allow-Origin", "*"); // Add this line
+                    server.send(200, "text/plain", uidPayload);
+                    Signal::cardRead();
+                    break;
+                }
+
+                if(timer.elapsed(10000))
+                {
+                    server.sendHeader("Access-Control-Allow-Origin", "*"); // Add this line
+                    server.send(200, "text/plain", "timeout");
+                    Signal::connectionError();
+                    break;
+                }
+
+                delay(5);
+            }
         });
 
         server.begin();

@@ -30,6 +30,10 @@ namespace Signal
     /// @brief signalization for ping
     ///
     void ping();
+
+    /// @brief signalization for card read
+    ///
+    void cardRead();
 }
 
 

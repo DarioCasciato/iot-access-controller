@@ -71,6 +71,7 @@ html table, body table {
   margin: 20px 50px;
   width: calc(100% - 100px);
   border-collapse: collapse;
+  border-radius: 5px;
 }
 html table th, html table td, body table th, body table td {
   text-align: left;
@@ -82,4 +83,10 @@ html table th, body table th {
 }
 html table tr:nth-child(even), body table tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+html .granted, body .granted {
+  color: green;
+}
+html .denied, body .denied {
+  color: red;
 }/*# sourceMappingURL=style.css.map */

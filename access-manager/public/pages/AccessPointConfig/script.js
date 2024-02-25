@@ -35,7 +35,9 @@ function makeCellEditable(cell, deviceID, field, originalValue) {
 
 function updateAccessPoint(deviceID, field, newValue) {
     const body = { deviceID };
-    body[field] = newValue; // Dynamically set which field to update
+    // Use 'newName' or 'newNotes' depending on the field being updated
+    const updateField = field === 'name' ? 'newName' : 'newNotes';
+    body[updateField] = newValue;
 
     fetch('/api/access-points/update', {
         method: 'POST',
@@ -86,6 +88,14 @@ function scanForDevices() {
         const scanNextDevice = () => {
             if (currentIp > endIp) {
                 console.log('Scanning complete.');
+
+                // if no devices found, display message
+                if (foundDevices.length === 0) {
+                    console.log('No devices found.');
+                    alert('No devices found.');
+                    return;
+                }
+
                 displayFoundDevices(foundDevices); // Display all found devices after scanning is complete
                 return; // Exit recursion
             }
@@ -154,9 +164,10 @@ function populateAccessPointsTable(accessPoints) {
         identifyButton.onclick = () => identifyDevice(point.ip); // Assuming identifyDevice function accepts ip address
         actionsCell.appendChild(identifyButton);
 
-        // Add "Delete" button
+        // Add "Delete" button and add 'delete-button' class to it
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-button'); // Add this line
         deleteButton.onclick = () => deleteAccessPoint(point.deviceID); // Assuming deleteAccessPoint function accepts deviceID
         actionsCell.appendChild(deleteButton);
     });
@@ -236,11 +247,10 @@ function displayFoundDevices(foundDevices) {
         // Add to System button
         const addButton = document.createElement('button');
         addButton.textContent = 'Add to System';
-        // Ensure you're passing both deviceID and ip when adding the device to the system
         addButton.addEventListener('click', () => addDeviceToSystem(device.deviceID, device.ip));
         deviceElement.appendChild(addButton);
 
-        // Identify button - sends a ping to the device to identify it
+        // Identify button
         const identifyButton = document.createElement('button');
         identifyButton.textContent = 'Identify';
         identifyButton.addEventListener('click', () => identifyDevice(device.ip));

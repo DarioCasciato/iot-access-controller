@@ -89,4 +89,18 @@ namespace Signal
         Hardware::led.SetPixelColor(0, off);
         Hardware::led.Show();
     }
+
+    void cardRead()
+    {
+        Hardware::buzzer.play(3000);
+        Hardware::led.SetPixelColor(0, blue);
+        Hardware::led.Show();
+        delay(150);
+        Hardware::led.SetPixelColor(0, off);
+        Hardware::led.Show();
+        Hardware::buzzer.pause();
+
+        Hardware::led.ClearTo(1);
+        Hardware::led.Show();
+    }
 } // namespace Signal

@@ -28,14 +28,22 @@ router.post('/update', (req, res) => {
         let records = parse(csvData, { columns: true, skip_empty_lines: true });
 
         const index = records.findIndex(record => record.deviceID === deviceID);
-        if (index === -1) {
-            // Add new device if it doesn't exist
-            records.push({ deviceID, ip, name: newName, notes: newNotes });
+        if (index !== -1) {
+            // Existing device, update only provided fields
+            const existingRecord = records[index];
+            const updatedRecord = {
+                ...existingRecord,
+                ip: ip ?? existingRecord.ip, // Use existing value if ip is not provided
+                name: newName ?? existingRecord.name, // Use existing value if newName is not provided
+                notes: newNotes ?? existingRecord.notes // Use existing value if newNotes is not provided
+            };
+            records[index] = updatedRecord;
         } else {
-            // Update existing device's name, notes, and IP
-            records[index] = { ...records[index], ip, name: newName, notes: newNotes };
+            // New device, add it
+            records.push({ deviceID, ip, name: newName, notes: newNotes });
         }
 
+        // Save the updated records to the CSV
         const updatedCsvData = stringify(records, { header: true });
         fs.writeFileSync(accessPointsFilePath, updatedCsvData, 'utf8');
 
@@ -45,6 +53,7 @@ router.post('/update', (req, res) => {
         res.status(500).json({ message: 'Failed to update access point' });
     }
 });
+
 
 // Route to delete an access point
 router.post('/delete', (req, res) => {

@@ -5,6 +5,7 @@
 
 // Variables
 $primary-blue: #003594;
+$primary-red: #e62b2f;
 $primary-white: #ffffff;
 
 // body
@@ -57,8 +58,51 @@ html, body
         // Style as needed
     }
 
+    .new-device {
+        width: 100%;
+        margin: 20px 50px;
+
+        button {
+            margin: 0 20px 0 0;
+            background-color: $primary-blue;
+            color: $primary-white;
+            padding: 7px 15px;
+            border: 2px solid $primary-blue;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s; // Also transition color
+
+            &:hover {
+                background-color: $primary-white;
+                color: $primary-blue;
+                cursor: pointer;
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        #progressContainer {
+            margin-top: 20px;
+            border-radius: 100px;
+            width: calc(100% - 100px);
+            height: 20px;
+            border: 2px solid rgba(0, 0, 0, 0.32);
+
+            #progressBar {
+                border-radius: 100px;
+            }
+        }
+
+        #foundDevices {
+            margin-top: 20px;
+        }
+    }
+
     table {
         margin: 20px 50px;
+        margin-top: 30px;
         width: calc(100% - 100px); // Adjust based on the margin
         border-collapse: collapse;
         border-radius: 5px;
@@ -77,15 +121,39 @@ html, body
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+    }
 
-        .delete-button button {
-            /* Styles for your delete button */
-            padding: 5px 10px;
-            margin: 0;
-            border: 1px solid #ccc;
-            background-color: #f44336;
-            color: white;
-            cursor: pointer;
+    .actions-cell {
+        button {
+            background-color: $primary-blue;
+            color: $primary-white;
+            padding: 7px 15px;
+            border: 2px solid $primary-blue;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s; // Also transition color
+            margin-right: 20px;
+
+            &:hover {
+                background-color: $primary-white;
+                color: $primary-blue;
+                cursor: pointer;
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &.delete-button {
+                background-color: $primary-red;
+                border-color: $primary-red;
+
+                &:hover {
+                    background-color: $primary-white;
+                    color: $primary-red;
+                }
+            }
         }
     }
 }
+

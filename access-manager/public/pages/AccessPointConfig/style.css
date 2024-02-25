@@ -38,10 +38,47 @@ html h1, body h1 {
 html .editable, body .editable {
   cursor: pointer;
 }
+html .new-device, body .new-device {
+  width: 100%;
+  margin: 20px 50px;
+}
+html .new-device button, body .new-device button {
+  margin: 0 20px 0 0;
+  background-color: #003594;
+  color: #ffffff;
+  padding: 7px 15px;
+  border: 2px solid #003594;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+html .new-device button:hover, body .new-device button:hover {
+  background-color: #ffffff;
+  color: #003594;
+  cursor: pointer;
+}
+html .new-device button:focus, body .new-device button:focus {
+  outline: none;
+}
+html .new-device #progressContainer, body .new-device #progressContainer {
+  margin-top: 20px;
+  border-radius: 100px;
+  width: calc(100% - 100px);
+  height: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.32);
+}
+html .new-device #progressContainer #progressBar, body .new-device #progressContainer #progressBar {
+  border-radius: 100px;
+}
+html .new-device #foundDevices, body .new-device #foundDevices {
+  margin-top: 20px;
+}
 html table, body table {
   margin: 20px 50px;
+  margin-top: 30px;
   width: calc(100% - 100px);
   border-collapse: collapse;
+  border-radius: 5px;
   table-layout: fixed;
 }
 html table th, html table td, body table th, body table td {
@@ -54,4 +91,30 @@ html table th, body table th {
 }
 html table tr:nth-child(even), body table tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+html .actions-cell button, body .actions-cell button {
+  background-color: #003594;
+  color: #ffffff;
+  padding: 7px 15px;
+  border: 2px solid #003594;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+  margin-right: 20px;
+}
+html .actions-cell button:hover, body .actions-cell button:hover {
+  background-color: #ffffff;
+  color: #003594;
+  cursor: pointer;
+}
+html .actions-cell button:focus, body .actions-cell button:focus {
+  outline: none;
+}
+html .actions-cell button.delete-button, body .actions-cell button.delete-button {
+  background-color: #e62b2f;
+  border-color: #e62b2f;
+}
+html .actions-cell button.delete-button:hover, body .actions-cell button.delete-button:hover {
+  background-color: #ffffff;
+  color: #e62b2f;
 }/*# sourceMappingURL=style.css.map */
