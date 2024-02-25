@@ -1,0 +1,1 @@
+- User page. Create user by scanning card via access point
