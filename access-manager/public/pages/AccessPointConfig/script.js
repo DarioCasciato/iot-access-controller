@@ -80,8 +80,7 @@ function scanForDevices() {
     fetch('/api/access-points')
     .then(response => response.json())
     .then(existingDevices => {
-        const registeredDeviceIDs = new Set(existingDevices.map(device => device.deviceID));
-        const registeredIps = new Set(existingDevices.map(device => device.ip));
+        const deviceMap = new Map(existingDevices.map(device => [device.deviceID, device.ip]));
         const startIp = 1; // Start of your IP range
         const endIp = 254; // End of your IP range
         let currentIp = startIp;
@@ -89,48 +88,37 @@ function scanForDevices() {
         const scanNextDevice = () => {
             if (currentIp > endIp) {
                 console.log('Scanning complete.');
-
-                // if no devices found, display message
                 if (foundDevices.length === 0) {
-                    console.log('No devices found.');
-                    alert('No devices found.');
-                    return;
+                    alert('No new or changed devices found.');
+                } else {
+                    displayFoundDevices(foundDevices); // Display all found devices after scanning is complete
                 }
-
-                displayFoundDevices(foundDevices); // Display all found devices after scanning is complete
-                return; // Exit recursion
+                return;
             }
 
             let ip = `192.168.1.${currentIp}`;
             fetch(`/api/device-scan/${ip}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Device at ${ip} did not respond correctly or is not a target device.`);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    // check if deviceID is not registered or ip is not registered
-                    if (data.deviceID && !registeredDeviceIDs.has(data.deviceID) || data.ip && !registeredIps.has(data.ip)) {
-                        console.log(`Found unregistered device ID ${data.deviceID} at IP ${ip}`);
-                        foundDevices.push({ deviceID: data.deviceID, ip }); // Add to found devices array
+                    // Check if deviceID is known and if IP has changed
+                    if (data.deviceID && (!deviceMap.has(data.deviceID) || deviceMap.get(data.deviceID) !== data.ip)) {
+                        console.log(`Found new or changed device ID ${data.deviceID} at IP ${ip}`);
+                        foundDevices.push({ deviceID: data.deviceID, ip });
                     }
                 })
-                .catch(error => {
-                    console.log(error.message); // Log and skip over devices that don't meet criteria or cause errors
-                })
+                .catch(error => console.log(error.message))
                 .finally(() => {
-                    // Update progress bar after each IP has been scanned
                     currentIp++;
                     updateProgressBar(((currentIp - startIp) / (endIp - startIp + 1)) * 100);
-                    scanNextDevice(); // Recurse to scan the next device
+                    scanNextDevice();
                 });
         };
 
-        scanNextDevice(); // Start scanning
+        scanNextDevice();
     })
     .catch(error => console.error('Error fetching existing devices:', error));
 }
+
 
 function updateProgressBar(percentage) {
     const progressBar = document.getElementById('progressBar');
