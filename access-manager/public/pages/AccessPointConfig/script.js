@@ -101,9 +101,16 @@ function scanForDevices() {
                 .then(response => response.json())
                 .then(data => {
                     // Check if deviceID is known and if IP has changed
-                    if (data.deviceID && (!deviceMap.has(data.deviceID) || deviceMap.get(data.deviceID) !== data.ip)) {
-                        console.log(`Found new or changed device ID ${data.deviceID} at IP ${ip}`);
-                        foundDevices.push({ deviceID: data.deviceID, ip });
+                    if (data.deviceID && (!deviceMap.has(data.deviceID) || deviceMap.get(data.ip) !== data.ip)) {
+                        // if device ID exists but with different ip
+                        if (deviceMap.has(data.deviceID)) {
+                            // if device ID exists but with different ip, overwrite the ip
+                            addDeviceToSystem(data.deviceID, ip);
+                        }
+                        else {
+                            console.log(`Found new or changed device ID ${data.deviceID} at IP ${ip}`);
+                            foundDevices.push({ deviceID: data.deviceID, ip });
+                        }
                     }
                 })
                 .catch(error => console.log(error.message))
