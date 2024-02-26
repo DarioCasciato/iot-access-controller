@@ -20,7 +20,7 @@ app.use(express.static('public'));
 app.use('/api/access-points', accessPointsRoutes);
 //app.use('/api/assignments', assignmentsRoutes);
 app.use('/api/logs', logsRoutes);
-//app.use('/api/users', usersRoutes);
+app.use('/api/users', usersRoutes);
 
 // Serve the Overview page as the landing page
 app.get('/', (req, res) => {

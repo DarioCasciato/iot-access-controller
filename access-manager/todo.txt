@@ -1,1 +1,2 @@
-- User page. Create user by scanning card via access point
+- User page. Design create user UI when pressing add new user
+- Update log to remove user index, and add user name and card uid

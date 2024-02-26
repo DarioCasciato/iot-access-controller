@@ -35,32 +35,41 @@ html h1, body h1 {
   margin-left: 50px;
   font-size: 30px;
 }
-html .pages, body .pages {
-  width: 60%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  align-self: center;
-  margin-top: 10%;
+html table, body table {
+  margin: 20px 50px;
+  margin-top: 30px;
+  width: calc(100% - 100px);
+  border-collapse: collapse;
+  border-radius: 5px;
+  table-layout: fixed;
 }
-html .pages a, body .pages a {
-  color: black;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 190px;
-  height: 140px;
-  text-decoration: none;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px 10px rgba(49, 49, 49, 0.1);
-  transition: all 0.3s ease;
+html table th, html table td, body table th, body table td {
+  text-align: left;
+  padding: 8px;
 }
-html .pages a p, body .pages a p {
-  margin-top: auto;
-  margin-bottom: 20px;
+html table th, body table th {
+  background-color: #003594;
+  color: #ffffff;
 }
-html .pages a:hover, body .pages a:hover {
-  transform: scale(1.05);
+html table tr:nth-child(even), body table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+html button.delete-button, body button.delete-button {
+  background-color: #e62b2f;
+  border-color: #e62b2f;
+  color: #ffffff;
+  padding: 7px 15px;
+  border: 2px solid #e62b2f;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+  margin-right: 20px;
+}
+html button.delete-button:hover, body button.delete-button:hover {
+  background-color: #ffffff;
+  color: #e62b2f;
+  cursor: pointer;
+}
+html button.delete-button:focus, body button.delete-button:focus {
+  outline: none;
 }/*# sourceMappingURL=style.css.map */

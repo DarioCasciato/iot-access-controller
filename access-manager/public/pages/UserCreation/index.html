@@ -15,6 +15,32 @@
 
     <h1>User Creation</h1>
 
+    <button id="createUserButton">Create User</button>
+    <div id="createUserModal" style="display:none;">
+        <input type="text" id="userName" placeholder="Name">
+        <input type="text" id="userFamilyName" placeholder="Family Name">
+        <input type="text" id="cardUID" placeholder="Card UID">
+        <select id="accessPointSelect">
+            <!-- Access points will be populated here -->
+        </select>
+        <button id="readCardUIDButton">Read</button>
+        <button id="submitUserButton">Create User</button>
+    </div>
+
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Family Name</th>
+                <th>Card UID</th>
+                <th>Actions</th> <!-- For Button to delete Users -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Users will be inserted here -->
+        </tbody>
+    </table>
+
 
     <script src="script.js"></script>
 </body>
