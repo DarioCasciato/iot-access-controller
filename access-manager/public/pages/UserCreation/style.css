@@ -35,6 +35,130 @@ html h1, body h1 {
   margin-left: 50px;
   font-size: 30px;
 }
+html button#createUserButton, body button#createUserButton {
+  margin: 0 0 0 50px;
+  width: 140px;
+  background-color: #003594;
+  color: #ffffff;
+  padding: 7px 15px;
+  border: 2px solid #003594;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+html button#createUserButton:hover, body button#createUserButton:hover {
+  background-color: #ffffff;
+  color: #003594;
+  cursor: pointer;
+}
+html button#createUserButton:focus, body button#createUserButton:focus {
+  outline: none;
+}
+html .modal-overlay, body .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+html .modal-container, body .modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 320px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+html .modal-container .close-modal-button, body .modal-container .close-modal-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+html .modal-container #createUserModal, body .modal-container #createUserModal {
+  display: flex;
+  flex-direction: column;
+}
+html .modal-container #createUserModal input, body .modal-container #createUserModal input {
+  border: 2px solid black;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-right: 20px;
+}
+html .modal-container #createUserModal input:focus, body .modal-container #createUserModal input:focus {
+  outline: none;
+  border-color: #003594;
+}
+html .modal-container #createUserModal .name, body .modal-container #createUserModal .name {
+  margin-left: 50px;
+  margin-top: 20px;
+}
+html .modal-container #createUserModal .uid, body .modal-container #createUserModal .uid {
+  margin-left: 50px;
+  margin-top: 20px;
+}
+html .modal-container #createUserModal .uid select, body .modal-container #createUserModal .uid select {
+  border: 2px solid black;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-right: 20px;
+}
+html .modal-container #createUserModal .uid select:focus, body .modal-container #createUserModal .uid select:focus {
+  outline: none;
+  border-color: #003594;
+}
+html .modal-container #createUserModal .uid button, body .modal-container #createUserModal .uid button {
+  background-color: #003594;
+  color: #ffffff;
+  padding: 8px 15px;
+  width: 100px;
+  border: 2px solid #003594;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+html .modal-container #createUserModal .uid button:hover, body .modal-container #createUserModal .uid button:hover {
+  background-color: #ffffff;
+  color: #003594;
+  cursor: pointer;
+}
+html .modal-container #createUserModal .uid button:focus, body .modal-container #createUserModal .uid button:focus {
+  outline: none;
+}
+html .modal-container #createUserModal button#submitUserButton, body .modal-container #createUserModal button#submitUserButton {
+  margin-top: 50px;
+  width: 200px;
+  align-self: center;
+  background-color: #4CAF50;
+  color: #ffffff;
+  padding: 7px 15px;
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+html .modal-container #createUserModal button#submitUserButton:hover, body .modal-container #createUserModal button#submitUserButton:hover {
+  background-color: #ffffff;
+  color: #4CAF50;
+  cursor: pointer;
+}
+html .modal-container #createUserModal button#submitUserButton:focus, body .modal-container #createUserModal button#submitUserButton:focus {
+  outline: none;
+}
 html table, body table {
   margin: 20px 50px;
   margin-top: 30px;

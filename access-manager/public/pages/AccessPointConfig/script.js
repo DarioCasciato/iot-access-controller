@@ -139,6 +139,8 @@ function populateAccessPointsTable(accessPoints) {
 
     accessPoints.forEach(point => {
         const row = tableBody.insertRow();
+
+        // Device ID Cell
         row.insertCell(0).textContent = point.deviceID;
 
         // Editable Name Cell
@@ -146,29 +148,35 @@ function populateAccessPointsTable(accessPoints) {
         nameCell.textContent = point.name;
         makeCellEditable(nameCell, point.deviceID, 'name', point.name);
 
-        // Editable Notes Cell
-        const notesCell = row.insertCell(2);
-        notesCell.textContent = point.notes || "";
-        makeCellEditable(notesCell, point.deviceID, 'notes', point.notes || "");
+        // Editable Description (Notes) Cell
+        const descriptionCell = row.insertCell(2);
+        descriptionCell.textContent = point.notes || "";
+        makeCellEditable(descriptionCell, point.deviceID, 'notes', point.notes || "");
 
-        // Create the "Actions" cell
-        const actionsCell = row.insertCell(3);
+        // IP Address Cell
+        const ipCell = row.insertCell(3);
+        ipCell.textContent = point.ip; // Ensure 'ip' matches your data model
+
+        // Actions Cell
+        const actionsCell = row.insertCell(4);
         actionsCell.classList.add('actions-cell'); // Add a class for styling if needed
 
-        // Add "Identify" button
+        // "Identify" Button
         const identifyButton = document.createElement('button');
         identifyButton.textContent = 'Identify';
-        identifyButton.onclick = () => identifyDevice(point.ip); // Assuming identifyDevice function accepts ip address
+        identifyButton.onclick = () => identifyDevice(point.ip); // Ensure identifyDevice function is implemented
         actionsCell.appendChild(identifyButton);
 
-        // Add "Delete" button and add 'delete-button' class to it
+        // "Delete" Button
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete-button'); // Add this line
-        deleteButton.onclick = () => deleteAccessPoint(point.deviceID); // Assuming deleteAccessPoint function accepts deviceID
+        deleteButton.classList.add('delete-button');
+        deleteButton.onclick = () => deleteAccessPoint(point.deviceID); // Ensure deleteAccessPoint function is implemented
         actionsCell.appendChild(deleteButton);
     });
 }
+
+
 
 
 

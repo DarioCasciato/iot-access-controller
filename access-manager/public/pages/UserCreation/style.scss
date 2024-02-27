@@ -6,6 +6,7 @@
 // Variables
 $primary-blue: #003594;
 $primary-red: #e62b2f;
+$primary-green: #4CAF50;
 $primary-white: #ffffff;
 
 // body
@@ -51,6 +52,156 @@ html, body
         margin-top: 30px;
         margin-left: 50px;
         font-size: 30px;
+    }
+
+    // selector for button with id "createUserButton"
+    button#createUserButton
+    {
+        margin: 0 0 0 50px;
+        // set width to 100px
+        width: 140px;
+
+        background-color: $primary-blue;
+        color: $primary-white;
+        padding: 7px 15px;
+        border: 2px solid $primary-blue;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s, color 0.3s; // Also transition color
+
+        &:hover {
+            background-color: $primary-white;
+            color: $primary-blue;
+            cursor: pointer;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5); // Dark overlay
+        z-index: 1000; // Ensure it's above other content
+    }
+
+    .modal-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px; // Adjust based on your form size
+        height: 320px; // Adjust based on your form size
+        background-color: $primary-white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 1001; // Above the overlay
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .close-modal-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #createUserModal {
+            display: flex;
+            flex-direction: column;
+
+            input {
+                border: 2px solid black;
+                padding: 8px 10px;
+                border-radius: 5px; // Rounded corners for inputs
+                font-size: 16px; // Slightly larger font size for readability
+                margin-right: 20px;
+
+                &:focus {
+                    outline: none; // Removes the default focus outline
+                    border-color: $primary-blue; // Highlight with primary color on focus
+                }
+            }
+
+            .name {
+                margin-left: 50px;
+                margin-top: 20px;
+            }
+
+            .uid {
+                margin-left: 50px;
+                margin-top: 20px;
+
+                select {
+                    border: 2px solid black;
+                    padding: 8px 10px;
+                    border-radius: 5px; // Rounded corners for inputs
+                    font-size: 16px; // Slightly larger font size for readability
+                    margin-right: 20px;
+
+                    &:focus {
+                        outline: none; // Removes the default focus outline
+                        border-color: $primary-blue; // Highlight with primary color on focus
+                    }
+                }
+
+                button {
+                    background-color: $primary-blue;
+                    color: $primary-white;
+                    padding: 8px 15px;
+                    width: 100px;
+                    // blue border
+                    border: 2px solid $primary-blue;
+                    border-radius: 5px; // Consistent with inputs
+                    font-size: 16px;
+                    transition: background-color 0.3s; // Smooth transition for hover effect
+
+                    &:hover {
+                        background-color: $primary-white; // Darker shade on hover
+                        color: $primary-blue; // Text color change on hover
+                        cursor: pointer;
+                    }
+
+                    &:focus {
+                        outline: none; // Removes the default focus outline
+                    }
+                }
+            }
+
+            button#submitUserButton {
+                margin-top: 50px;
+                width: 200px;
+                align-self: center;
+
+                background-color: $primary-green;
+                color: $primary-white;
+                padding: 7px 15px;
+                border: 2px solid $primary-green;
+                border-radius: 5px;
+                font-size: 16px;
+                transition: background-color 0.3s, color 0.3s; // Also transition color
+
+                &:hover {
+                    background-color: $primary-white;
+                    color: $primary-green;
+                    cursor: pointer;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
     }
 
     table {

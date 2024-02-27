@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchUsers();
     fetchAccessPointsForSelect();
     setupEventListeners();
+    setupModalListeners(); // Set up listeners for modal functionality
 });
 
 function fetchUsers() {
@@ -50,11 +51,37 @@ function fetchAccessPointsForSelect() {
 
 function setupEventListeners() {
     document.getElementById('createUserButton').addEventListener('click', () => {
-        document.getElementById('createUserModal').style.display = 'block';
+        document.getElementById('modalOverlay').style.display = 'block';
+        document.getElementById('modalContainer').style.display = 'block';
     });
+
+    document.getElementById('closeModalButton').addEventListener('click', closeTheModal);
 
     document.getElementById('readCardUIDButton').addEventListener('click', readCardUID);
     document.getElementById('submitUserButton').addEventListener('click', createUser);
+
+    // Add listener for the Esc key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === "Escape") {
+            closeTheModal(); // Call the function to close the modal
+        }
+    });
+}
+
+// Function to close the modal, can be reused in different listeners
+function closeTheModal() {
+    document.getElementById('modalOverlay').style.display = 'none';
+    document.getElementById('modalContainer').style.display = 'none';
+}
+
+// Add this new function
+function setupModalListeners() {
+    // Removed the event listener for closing the modal when the overlay is clicked
+
+    // Prevent modal from closing when clicking inside the modal
+    document.getElementById('createUserModal').addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevents the click from propagating to the overlay
+    });
 }
 
 function readCardUID() {
@@ -75,6 +102,8 @@ function createUser() {
     const name = document.getElementById('userName').value;
     const familyName = document.getElementById('userFamilyName').value;
     const cardUID = document.getElementById('cardUID').value;
+    const modal = document.getElementById('createUserModal');
+    const modalOverlay = document.getElementById('modalOverlay');
 
     // Fetch existing users first
     fetch('/api/users')
@@ -96,8 +125,10 @@ function createUser() {
                 return response.json();
             })
             .then(() => {
+                closeTheModal(); // Call the function to close the modal
                 fetchUsers(); // Refresh the user list
-                document.getElementById('createUserModal').style.display = 'none'; // Hide modal
+                modal.style.display = 'none'; // Hide modal
+                modalOverlay.style.display = 'none'; // Hide modal overlay
             })
             .catch(error => console.error('Error creating user:', error));
         });

@@ -16,15 +16,28 @@
     <h1>User Creation</h1>
 
     <button id="createUserButton">Create User</button>
-    <div id="createUserModal" style="display:none;">
-        <input type="text" id="userName" placeholder="Name">
-        <input type="text" id="userFamilyName" placeholder="Family Name">
-        <input type="text" id="cardUID" placeholder="Card UID">
-        <select id="accessPointSelect">
-            <!-- Access points will be populated here -->
-        </select>
-        <button id="readCardUIDButton">Read</button>
-        <button id="submitUserButton">Create User</button>
+
+    <!-- Modal Overlay -->
+    <div id="modalOverlay" class="modal-overlay" style="display:none;"></div>
+
+    <!-- Modal Container -->
+    <div id="modalContainer" class="modal-container" style="display:none;">
+        <span id="closeModalButton" class="close-modal-button">&times;</span>
+        <div id="createUserModal">
+            <h1>Create User</h1>
+            <div class="name">
+                <input type="text" id="userName" placeholder="Name">
+                <input type="text" id="userFamilyName" placeholder="Family Name">
+            </div>
+            <div class="uid">
+                <input type="text" id="cardUID" placeholder="Card UID">
+                <select id="accessPointSelect">
+                    <!-- Access points will be populated here -->
+                </select>
+                <button id="readCardUIDButton">Read</button>
+            </div>
+            <button id="submitUserButton">Create User</button>
+        </div>
     </div>
 
     <table id="usersTable">
@@ -40,7 +53,6 @@
             <!-- Users will be inserted here -->
         </tbody>
     </table>
-
 
     <script src="script.js"></script>
 </body>
