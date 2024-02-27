@@ -36,10 +36,12 @@ html h1, body h1 {
   font-size: 30px;
 }
 html .pages, body .pages {
-  width: 60%;
+  width: 90%;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
   align-items: center;
   align-self: center;
   margin-top: 10%;
@@ -50,12 +52,13 @@ html .pages a, body .pages a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 190px;
-  height: 140px;
+  width: 18%;
+  height: 30vh;
   text-decoration: none;
-  border-radius: 10px;
+  border-radius: 2vh;
   box-shadow: 0px 0px 15px 10px rgba(49, 49, 49, 0.1);
   transition: all 0.3s ease;
+  margin: 20px;
 }
 html .pages a p, body .pages a p {
   margin-top: auto;
