@@ -1,2 +1,2 @@
-- User page. Design create user UI when pressing add new user
-- Update log to remove user index, and add user name and card uid
+- Fix delete button of access assignment
+- Create access request route

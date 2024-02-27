@@ -1,92 +1,254 @@
 @font-face {
-    font-family: '1dormakaba'; /* A name to use later */
-    src: url('../../assets/fonts/1dormakaba-Regular.otf') format('opentype'); /* Path to your OTF font file */
+    font-family: '1dormakaba'; // A name to use later
+    src: url('../../assets/fonts/1dormakaba-Regular.otf') format('opentype'); // Path to your OTF font file
 }
 
 // Variables
 $primary-blue: #003594;
+$primary-red: #e62b2f;
+$primary-green: #4CAF50;
 $primary-white: #ffffff;
+$primary-black: #000000;
 
 // body
-html, body
-{
+html, body {
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     font-family: '1dormakaba', sans-serif;
+}
 
-    .header
-    {
-        height: 50px;
-        background-color: $primary-blue;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+.header {
+    height: 50px;
+    background-color: $primary-blue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-        a.home
-        {
-            margin-left: 50px;
-            color: $primary-white;
-            text-decoration: none;
-        }
-
-        .titlelogo
-        {
-            margin-right: 50px;
-
-            img.logo
-            {
-                height: 18px;
-                width: auto;
-                color: $primary-white;
-            }
-        }
-    }
-
-    h1
-    {
-        margin-top: 30px;
+    .home {
         margin-left: 50px;
-        font-size: 30px;
+        color: $primary-white;
+        text-decoration: none;
     }
 
-    .pages
+    .titlelogo {
+        margin-right: 50px;
+
+        .logo {
+            height: 18px;
+            width: auto;
+        }
+    }
+}
+
+h1 {
+    margin-top: 30px;
+    margin-left: 50px;
+    font-size: 30px;
+}
+
+// Button with id "assignAccessButton"
+button#assignAccessButton
     {
-        width: 60%;
+        margin: 0 0 0 50px;
+        // set width to 100px
+        width: 140px;
+
+        background-color: $primary-blue;
+        color: $primary-white;
+        padding: 7px 15px;
+        border: 2px solid $primary-blue;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s, color 0.3s; // Also transition color
+
+        &:hover {
+            background-color: $primary-white;
+            color: $primary-blue;
+            cursor: pointer;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background-color: $primary-white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .close-modal-button {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 25px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
+
+#assignAccessModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    height: 270px;
+
+
+    .container {
+        margin-top: 20px;
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
-        align-self: center;
-        margin-top: 10%;
+        // space between
+        justify-content:space-evenly;
 
-        // for every ELEMENT in pages
-        a
-        {
-            color: black;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 190px;
-            height: 140px;
-            text-decoration: none;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px 10px rgba($color: #313131, $alpha: 0.1);
-            transition: all 0.3s ease;
+        select {
+            border: 2px solid black;
+            padding: 8px 10px;
+            border-radius: 5px; // Rounded corners for inputs
+            font-size: 16px; // Slightly larger font size for readability
+            margin-right: 30px;
+            width: 200px;
 
-            p
-            {
-                margin-top: auto;
-                margin-bottom: 20px;
-            }
-
-            &:hover
-            {
-                transform: scale(1.05);
+            &:focus {
+                outline: none; // Removes the default focus outline
+                border-color: $primary-blue; // Highlight with primary color on focus
             }
         }
+
+        button {
+            background-color: $primary-green;
+            color: $primary-white;
+            padding: 8px 15px;
+            width: 200px;
+            margin-top: 30px;
+            border: 2px solid $primary-green;
+            border-radius: 5px; // Consistent with inputs
+            font-size: 16px;
+            transition: background-color 0.3s; // Smooth transition for hover effect
+
+            &:hover {
+                background-color: $primary-white; // Darker shade on hover
+                color: $primary-green; // Text color change on hover
+                cursor: pointer;
+            }
+
+            &:focus {
+                outline: none; // Removes the default focus outline
+            }
+        }
+
+        input[type="datetime-local"] {
+            border: 2px solid $primary-black;
+            padding: 8px 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: 200px;
+
+            &:focus {
+                outline: none;
+                border-color: darken($primary-blue, 10%);
+            }
+
+            &:disabled {
+                background-color: #e9ecef; // Light gray background for disabled state
+            }
+        }
+
+        .checkbox-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            input[type="checkbox"] {
+                margin-right: 10px;
+            }
+
+            label {
+                font-size: 16px;
+            }
+        }
+
+        .selection {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .expiry {
+            display: flex;
+            flex-direction: row;
+            width: 87%;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    }
+}
+
+table {
+    margin: 20px 50px;
+    margin-top: 30px;
+    width: calc(100% - 100px); // Adjust based on the margin
+    border-collapse: collapse;
+    border-radius: 5px;
+    table-layout: fixed;
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: $primary-blue;
+        color: $primary-white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+}
+
+button.delete-button {
+    background-color: $primary-red;
+    border-color: $primary-red;
+    color: $primary-white;
+    padding: 7px 15px;
+    border: 2px solid $primary-red;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s; // Also transition color
+    margin-right: 20px;
+
+    &:hover {
+        background-color: $primary-white;
+        color: $primary-red;
+        cursor: pointer;
+    }
+
+    &:focus {
+        outline: none;
     }
 }

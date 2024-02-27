@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "1dormakaba"; /* A name to use later */
-  src: url("../../assets/fonts/1dormakaba-Regular.otf") format("opentype"); /* Path to your OTF font file */
+  font-family: "1dormakaba";
+  src: url("../../assets/fonts/1dormakaba-Regular.otf") format("opentype");
 }
 html, body {
   margin: 0;
@@ -9,7 +9,8 @@ html, body {
   flex-direction: column;
   font-family: "1dormakaba", sans-serif;
 }
-html .header, body .header {
+
+.header {
   height: 50px;
   background-color: #003594;
   display: flex;
@@ -17,50 +18,197 @@ html .header, body .header {
   justify-content: space-between;
   align-items: center;
 }
-html .header a.home, body .header a.home {
+.header .home {
   margin-left: 50px;
   color: #ffffff;
   text-decoration: none;
 }
-html .header .titlelogo, body .header .titlelogo {
+.header .titlelogo {
   margin-right: 50px;
 }
-html .header .titlelogo img.logo, body .header .titlelogo img.logo {
+.header .titlelogo .logo {
   height: 18px;
   width: auto;
-  color: #ffffff;
 }
-html h1, body h1 {
+
+h1 {
   margin-top: 30px;
   margin-left: 50px;
   font-size: 30px;
 }
-html .pages, body .pages {
-  width: 60%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  align-self: center;
-  margin-top: 10%;
+
+button#assignAccessButton {
+  margin: 0 0 0 50px;
+  width: 140px;
+  background-color: #003594;
+  color: #ffffff;
+  padding: 7px 15px;
+  border: 2px solid #003594;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
 }
-html .pages a, body .pages a {
-  color: black;
-  text-align: center;
+button#assignAccessButton:hover {
+  background-color: #ffffff;
+  color: #003594;
+  cursor: pointer;
+}
+button#assignAccessButton:focus {
+  outline: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 190px;
-  height: 140px;
-  text-decoration: none;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px 10px rgba(49, 49, 49, 0.1);
-  transition: all 0.3s ease;
+  align-items: center;
 }
-html .pages a p, body .pages a p {
-  margin-top: auto;
-  margin-bottom: 20px;
+.modal-container .close-modal-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
 }
-html .pages a:hover, body .pages a:hover {
-  transform: scale(1.05);
+
+#assignAccessModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  height: 270px;
+}
+#assignAccessModal .container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#assignAccessModal .container select {
+  border: 2px solid black;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-right: 30px;
+  width: 200px;
+}
+#assignAccessModal .container select:focus {
+  outline: none;
+  border-color: #003594;
+}
+#assignAccessModal .container button {
+  background-color: #4CAF50;
+  color: #ffffff;
+  padding: 8px 15px;
+  width: 200px;
+  margin-top: 30px;
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+#assignAccessModal .container button:hover {
+  background-color: #ffffff;
+  color: #4CAF50;
+  cursor: pointer;
+}
+#assignAccessModal .container button:focus {
+  outline: none;
+}
+#assignAccessModal .container input[type=datetime-local] {
+  border: 2px solid #000000;
+  padding: 8px 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 200px;
+}
+#assignAccessModal .container input[type=datetime-local]:focus {
+  outline: none;
+  border-color: #002361;
+}
+#assignAccessModal .container input[type=datetime-local]:disabled {
+  background-color: #e9ecef;
+}
+#assignAccessModal .container .checkbox-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#assignAccessModal .container .checkbox-container input[type=checkbox] {
+  margin-right: 10px;
+}
+#assignAccessModal .container .checkbox-container label {
+  font-size: 16px;
+}
+#assignAccessModal .container .selection {
+  display: flex;
+  flex-direction: row;
+}
+#assignAccessModal .container .expiry {
+  display: flex;
+  flex-direction: row;
+  width: 87%;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+table {
+  margin: 20px 50px;
+  margin-top: 30px;
+  width: calc(100% - 100px);
+  border-collapse: collapse;
+  border-radius: 5px;
+  table-layout: fixed;
+}
+table th, table td {
+  text-align: left;
+  padding: 8px;
+}
+table th {
+  background-color: #003594;
+  color: #ffffff;
+}
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+button.delete-button {
+  background-color: #e62b2f;
+  border-color: #e62b2f;
+  color: #ffffff;
+  padding: 7px 15px;
+  border: 2px solid #e62b2f;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+  margin-right: 20px;
+}
+button.delete-button:hover {
+  background-color: #ffffff;
+  color: #e62b2f;
+  cursor: pointer;
+}
+button.delete-button:focus {
+  outline: none;
 }/*# sourceMappingURL=style.css.map */

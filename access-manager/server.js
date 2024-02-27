@@ -18,7 +18,7 @@ app.use(express.static('public'));
 
 // Use imported routes
 app.use('/api/access-points', accessPointsRoutes);
-//app.use('/api/assignments', assignmentsRoutes);
+app.use('/api/assignments', assignmentsRoutes);
 app.use('/api/logs', logsRoutes);
 app.use('/api/users', usersRoutes);
 
