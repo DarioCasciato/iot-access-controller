@@ -83,6 +83,7 @@ namespace Signal
 
     void ping()
     {
+        noTone((uint8_t)Hardware::Port::Buzzer);
         Hardware::led.SetPixelColor(0, white);
         Hardware::led.Show();
         delay(3000);

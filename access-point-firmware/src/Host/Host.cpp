@@ -51,6 +51,7 @@ namespace Host
 
             while(1)
             {
+                noTone((uint8_t)Hardware::Port::Buzzer);
                 RFID::updateTagPresence();
                 EdgeDetection::updateEdges();
                 RFID::updateTagUID();
