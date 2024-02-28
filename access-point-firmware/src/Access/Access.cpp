@@ -29,7 +29,6 @@ namespace Access
 
         // Parse JSON response
         bool accessGranted;
-        String accessLevel;
         if (!APIHandler::JSON::extract(response, "accessGranted", &accessGranted))
         {
             return ResponseStatus::ParseError;
@@ -37,7 +36,6 @@ namespace Access
 
         if (accessGranted)
         {
-            APIHandler::JSON::extract(response, "accessLevel", &accessLevel); // Optional: Extract access level if needed
             // Handle access granted (e.g., open a door)
             return ResponseStatus::Ok;
         }

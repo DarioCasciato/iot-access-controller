@@ -44,7 +44,7 @@ namespace State
         {
             Logging::log("\nTag detected! UID: %x", RFID::getUID());
 
-            Logging::log("Checking access...");
+            Logging::log("Requesting access...");
             Access::ResponseStatus response = Access::request(String(RFID::getUID()));
 
             switch (response)
