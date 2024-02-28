@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "*.cpp": "cpp",
-        "format": "cpp",
-        "initializer_list": "cpp",
-        "xstring": "cpp",
-        "xutility": "cpp"
-    }
-}
