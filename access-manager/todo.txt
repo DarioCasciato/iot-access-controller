@@ -1,5 +1,2 @@
-- Fix delete button of access assignment
-- add check for user not twice same name
-- add check for access assignment not twice the same access
-- Create access request route
-- update logs to have the device name, user name, access decision, timestamp
+- add icons to overview
+- add footer with created by Dario Casciato

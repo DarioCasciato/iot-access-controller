@@ -193,7 +193,7 @@ table tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-button.delete-button {
+button.delete-btn {
   background-color: #e62b2f;
   border-color: #e62b2f;
   color: #ffffff;
@@ -204,11 +204,11 @@ button.delete-button {
   transition: background-color 0.3s, color 0.3s;
   margin-right: 20px;
 }
-button.delete-button:hover {
+button.delete-btn:hover {
   background-color: #ffffff;
   color: #e62b2f;
   cursor: pointer;
 }
-button.delete-button:focus {
+button.delete-btn:focus {
   outline: none;
 }/*# sourceMappingURL=style.css.map */

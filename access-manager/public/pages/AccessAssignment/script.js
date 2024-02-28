@@ -77,33 +77,41 @@ function fetchAssignments() {
         .catch(error => console.error('Error fetching assignments:', error));
 }
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // JavaScript months are 0-based.
+    const year = date.getFullYear();
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    return `${day}-${month}-${year} ${hours}:${minutes}`;
+}
+
 function populateAssignmentsTable(assignments) {
     const tableBody = document.getElementById('accessAssignmentsTable').querySelector('tbody');
     tableBody.innerHTML = ''; // Clear existing assignments
 
     assignments.forEach((assignment, index) => {
         const row = tableBody.insertRow();
-        row.insertCell(0).textContent = assignment.userName; // Adjusted to use userName
-        row.insertCell(1).textContent = assignment.accessPointName; // Adjusted to use accessPointName
-        row.insertCell(2).textContent = assignment.expiry;
+        row.insertCell(0).textContent = assignment.userName;
+        row.insertCell(1).textContent = assignment.accessPointName;
+        const formattedExpiry = assignment.expiry !== "never" ? formatDate(assignment.expiry) : "Never";
+        row.insertCell(2).textContent = formattedExpiry;
 
         // Actions cell for delete button
         const actionsCell = row.insertCell(3);
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
-        deleteButton.dataset.id = assignment.id; // Use data attributes to store the assignment ID
-        deleteButton.classList.add('delete-btn'); // Add class for easier selection
+        deleteButton.dataset.id = assignment.id;
+        deleteButton.classList.add('delete-btn');
+        deleteButton.onclick = function() { // Attach the event listener directly
+            deleteAssignment(assignment.id);
+        };
         actionsCell.appendChild(deleteButton);
     });
-
-    // Attach the event listener to the table body for event delegation
-    tableBody.addEventListener('click', function(event) {
-        if (event.target.classList.contains('delete-btn')) {
-            const assignmentId = event.target.dataset.id;
-            deleteAssignment(assignmentId);
-        }
-    });
 }
+
 
 function createAssignment() {
     const userSelect = document.getElementById('userSelect');
@@ -113,48 +121,72 @@ function createAssignment() {
     const enableExpiryDate = document.getElementById('enableExpiryDate').checked;
     const expiryDate = document.getElementById('expiryDate').value;
 
-    const assignmentData = {
-        userName,
-        accessPointName,
-        expiry: enableExpiryDate ? expiryDate : "never",
-        isTimeLimited: enableExpiryDate,
-    };
+    if (enableExpiryDate && !expiryDate) {
+        alert("Please enter a date and time.");
+        return; // Exit the function early
+    }
 
-    console.log(JSON.stringify(assignmentData));
+    fetch('/api/assignments')
+        .then(response => response.json())
+        .then(assignments => {
+            // Check for duplicate assignment
+            const duplicate = assignments.some(assignment => assignment.userName === userName && assignment.accessPointName === accessPointName && assignment.expiry === (expiryDate || "never"));
+            if (duplicate) {
+                alert("An identical access assignment already exists.");
+                return; // Exit the function early if duplicate found
+            }
 
-    fetch('/api/assignments/create', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(assignmentData),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        closeModal(); // Close the modal on success
-        fetchAssignments(); // Refresh the assignments list
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+            // Proceed with creating the assignment if no duplicate
+            const assignmentData = {
+                userName,
+                accessPointName,
+                expiry: enableExpiryDate ? expiryDate : "never",
+                isTimeLimited: enableExpiryDate,
+            };
+
+            fetch('/api/assignments/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(assignmentData),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                closeModal(); // Close the modal on success
+                fetchAssignments(); // Refresh the assignments list
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        })
+        .catch(error => console.error('Error fetching assignments:', error));
 }
 
 
 function deleteAssignment(assignmentId) {
-    fetch(`/api/assignments/delete/${assignmentId}`, {
-        method: 'DELETE', // Assuming your API uses the DELETE method for deletion
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        fetchAssignments(); // Refresh the assignments list after deletion
-    })
-    .catch(error => console.error('Error:', error));
+    // Use confirm dialog to ask the user for confirmation
+    const isConfirmed = confirm('Are you sure you want to delete this assignment?');
+
+    // Proceed with deletion only if the user confirms
+    if (isConfirmed) {
+        fetch(`/api/assignments/delete/${assignmentId}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            fetchAssignments(); // Refresh the assignments list after deletion
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    else {
+        console.log('Deletion cancelled');
+    }
 }

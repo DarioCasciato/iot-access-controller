@@ -12,6 +12,7 @@ const accessPointsRoutes = require('./Routes/accessPoints');
 const assignmentsRoutes = require('./Routes/assignments');
 const logsRoutes = require('./Routes/logs');
 const usersRoutes = require('./Routes/users');
+const accessRequestRoutes = require('./Routes/accessRequest');
 
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
@@ -21,6 +22,7 @@ app.use('/api/access-points', accessPointsRoutes);
 app.use('/api/assignments', assignmentsRoutes);
 app.use('/api/logs', logsRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api', accessRequestRoutes);
 
 // Serve the Overview page as the landing page
 app.get('/', (req, res) => {

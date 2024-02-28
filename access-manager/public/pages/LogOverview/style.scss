@@ -5,7 +5,10 @@
 
 // Variables
 $primary-blue: #003594;
+$primary-red: #e62b2f;
+$primary-green: #4CAF50;
 $primary-white: #ffffff;
+$primary-black: #000000;
 
 html, body {
     margin: 0;
@@ -81,6 +84,16 @@ html, body {
             &:focus {
                 outline: none; // Removes the default focus outline
             }
+
+            &#resetFiltersButton {
+                background-color: $primary-red;
+                border-color: $primary-red;
+
+                &:hover {
+                    background-color: $primary-white;
+                    color: $primary-red;
+                }
+            }
         }
     }
 
@@ -89,6 +102,7 @@ html, body {
         width: calc(100% - 100px); // Adjust based on the margin
         border-collapse: collapse;
         border-radius: 5px;
+        table-layout: fixed;
 
         th, td {
             text-align: left;

@@ -67,11 +67,20 @@ html .filters button:hover, body .filters button:hover {
 html .filters button:focus, body .filters button:focus {
   outline: none;
 }
+html .filters button#resetFiltersButton, body .filters button#resetFiltersButton {
+  background-color: #e62b2f;
+  border-color: #e62b2f;
+}
+html .filters button#resetFiltersButton:hover, body .filters button#resetFiltersButton:hover {
+  background-color: #ffffff;
+  color: #e62b2f;
+}
 html table, body table {
   margin: 20px 50px;
   width: calc(100% - 100px);
   border-collapse: collapse;
   border-radius: 5px;
+  table-layout: fixed;
 }
 html table th, html table td, body table th, body table td {
   text-align: left;

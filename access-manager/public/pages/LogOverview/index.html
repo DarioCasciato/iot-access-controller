@@ -17,17 +17,18 @@
 
 
     <div class="filters">
-        <input list="deviceIds" id="filterDeviceId" placeholder="Filter by Device ID">
-        <datalist id="deviceIds">
-            <!-- Device IDs options will be populated here -->
+        <input list="deviceNames" id="filterDeviceName" placeholder="Filter by Device Name">
+        <datalist id="deviceNames">
+            <!-- Device Name options will be populated here -->
         </datalist>
 
-        <input list="userIndices" id="filterUserIndex" placeholder="Filter by User Index">
-        <datalist id="userIndices">
-            <!-- User indices options will be populated here -->
+        <input list="userNames" id="filterUserName" placeholder="Filter by User Name">
+        <datalist id="userNames">
+            <!-- User Name options will be populated here -->
         </datalist>
 
-        <button onclick="filterLogs()">Filter</button>
+        <button id="filterButton" onclick="filterLogs()">Filter</button>
+        <button id="resetFiltersButton" onclick="resetFilters()">Reset</button>
     </div>
 
     <table id="logTable">
@@ -35,7 +36,8 @@
             <tr>
                 <th>Device ID</th>
                 <th>Device Name</th> <!-- New Column for Device Name -->
-                <th>User Index</th>
+                <th>User</th>
+                <th>Badge UID</th>
                 <th>Access Decision</th>
                 <th>Timestamp</th>
             </tr>

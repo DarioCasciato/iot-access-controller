@@ -99,11 +99,10 @@ function readCardUID() {
 }
 
 function createUser() {
-    const name = document.getElementById('userName').value;
-    const familyName = document.getElementById('userFamilyName').value;
-    const cardUID = document.getElementById('cardUID').value;
-    const modal = document.getElementById('createUserModal');
-    const modalOverlay = document.getElementById('modalOverlay');
+    const name = document.getElementById('userName').value.trim();
+    const familyName = document.getElementById('userFamilyName').value.trim();
+    const cardUID = document.getElementById('cardUID').value.trim();
+    const fullName = `${name} ${familyName}`;
 
     // Fetch existing users first
     fetch('/api/users')
@@ -113,8 +112,12 @@ function createUser() {
                 alert('A user with this Card UID already exists.');
                 return; // Exit the function if UID already exists
             }
+            if (users.some(user => `${user.name.trim()} ${user.familyName.trim()}` === fullName)) {
+                alert('A user with this name already exists.');
+                return; // Exit the function if name already exists
+            }
 
-            // Proceed to create user if UID is unique
+            // Proceed to create user if UID and name are unique
             fetch('/api/users', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -127,12 +130,11 @@ function createUser() {
             .then(() => {
                 closeTheModal(); // Call the function to close the modal
                 fetchUsers(); // Refresh the user list
-                modal.style.display = 'none'; // Hide modal
-                modalOverlay.style.display = 'none'; // Hide modal overlay
             })
             .catch(error => console.error('Error creating user:', error));
         });
 }
+
 
 
 function deleteUser(cardUID) {
