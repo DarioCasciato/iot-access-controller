@@ -44,6 +44,11 @@ function populateUserNameFilter(users) {
         option.value = `${user.name} ${user.familyName}`;
         userNameDatalist.appendChild(option);
     });
+
+    // Add "Unknown User" option
+    const unknownOption = document.createElement('option');
+    unknownOption.value = 'Unknown User';
+    userNameDatalist.appendChild(unknownOption);
 }
 
 function displayLogs(logs) {
