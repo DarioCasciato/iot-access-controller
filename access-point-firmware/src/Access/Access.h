@@ -9,10 +9,10 @@ namespace Access
 {
     enum class ResponseStatus : uint8_t
     {
-        Ok,
-        Denied,
-        ConnectionFailed,
-        ParseError
+        Ok = 0,
+        Denied = 1,
+        ConnectionFailed = 2,
+        ParseError = 3
     };
 
 

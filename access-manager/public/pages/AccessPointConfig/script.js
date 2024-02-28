@@ -46,7 +46,6 @@ function updateAccessPoint(deviceID, field, newValue) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data.message); // Log success message
         // Optionally refresh or display a message
     })
     .catch(error => {

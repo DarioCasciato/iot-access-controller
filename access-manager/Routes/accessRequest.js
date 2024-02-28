@@ -25,9 +25,10 @@ router.post('/access-request', (req, res) => {
     const { deviceId, uid } = req.body;
     const assignments = readCsvFromFile(assignmentsFilePath);
     const currentTime = new Date();
+    const hexUid = parseInt(uid, 10).toString(16);
 
     // Check if access right exists and has not expired
-    const accessRight = assignments.find(assignment => assignment.deviceID === deviceId && assignment.cardUID === uid &&
+    const accessRight = assignments.find(assignment => assignment.deviceID === deviceId && assignment.cardUID === hexUid &&
         (assignment.expiry === "never" || new Date(assignment.expiry) > currentTime));
 
     const accessDecision = accessRight ? "granted" : "denied";
@@ -36,7 +37,7 @@ router.post('/access-request', (req, res) => {
     const logs = readCsvFromFile(logsFilePath);
     const newLogEntry = {
         deviceID: deviceId,
-        cardUID: uid,
+        cardUID: hexUid,
         accessDecision: accessDecision,
         timestamp: currentTime.toISOString()
     };

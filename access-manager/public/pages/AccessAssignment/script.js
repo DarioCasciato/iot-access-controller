@@ -194,6 +194,5 @@ function deleteAssignment(assignmentId) {
         .catch(error => console.error('Error:', error));
     }
     else {
-        console.log('Deletion cancelled');
     }
 }
