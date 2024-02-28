@@ -75,6 +75,7 @@ html, body {
             border: 2px solid $primary-blue;
             border-radius: 5px; // Consistent with inputs
             font-size: 16px;
+            font-weight: bold; // Bold text for emphasis
             transition: background-color 0.3s; // Smooth transition for hover effect
 
             &:hover {
@@ -88,12 +89,12 @@ html, body {
             }
 
             &#resetFiltersButton {
-                background-color: $primary-red;
-                border-color: $primary-red;
+                background-color: $primary-grey;
+                border-color: $primary-grey;
+                color: $primary-black;
 
                 &:hover {
                     background-color: $primary-white;
-                    color: $primary-red;
                 }
             }
         }

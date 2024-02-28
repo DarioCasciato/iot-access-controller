@@ -58,6 +58,7 @@ html .filters button, body .filters button {
   border: 2px solid #003594;
   border-radius: 5px;
   font-size: 16px;
+  font-weight: bold;
   transition: background-color 0.3s;
 }
 html .filters button:hover, body .filters button:hover {
@@ -69,12 +70,12 @@ html .filters button:focus, body .filters button:focus {
   outline: none;
 }
 html .filters button#resetFiltersButton, body .filters button#resetFiltersButton {
-  background-color: #e62b2f;
-  border-color: #e62b2f;
+  background-color: #EEEEEE;
+  border-color: #EEEEEE;
+  color: #000000;
 }
 html .filters button#resetFiltersButton:hover, body .filters button#resetFiltersButton:hover {
   background-color: #ffffff;
-  color: #e62b2f;
 }
 html table, body table {
   margin: 20px 50px;
