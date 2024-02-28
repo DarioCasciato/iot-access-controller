@@ -23,7 +23,7 @@ namespace State
         switch (State::state)
         {
         case State::st_idle: stateIdle(); break;
-        case State::st_end: stateEnd(); break;
+        case State::st_error: stateError(); break;
 
         default:    // catch invalid state (implement safety backup)
         goto exception;
@@ -75,7 +75,7 @@ namespace State
         Host::handleClient();
     }
 
-    void stateEnd()
+    void stateError()
     {
         delay(1000);
     }
