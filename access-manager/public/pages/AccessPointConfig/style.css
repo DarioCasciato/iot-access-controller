@@ -83,6 +83,7 @@ html table, body table {
   border-collapse: collapse;
   border-radius: 5px;
   table-layout: fixed;
+  border: 2px solid #003594;
 }
 html table th, html table td, body table th, body table td {
   text-align: left;

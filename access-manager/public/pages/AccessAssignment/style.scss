@@ -217,6 +217,7 @@ table {
     border-collapse: collapse;
     border-radius: 5px;
     table-layout: fixed;
+    border: 2px solid $primary-blue;
 
     th, td {
         text-align: left;

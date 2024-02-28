@@ -181,6 +181,7 @@ table {
   border-collapse: collapse;
   border-radius: 5px;
   table-layout: fixed;
+  border: 2px solid #003594;
 }
 table th, table td {
   text-align: left;

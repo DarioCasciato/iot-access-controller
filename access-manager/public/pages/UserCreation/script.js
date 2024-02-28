@@ -104,6 +104,12 @@ function createUser() {
     const cardUID = document.getElementById('cardUID').value.trim();
     const fullName = `${name} ${familyName}`;
 
+    // Check if any of the fields are empty
+    if (!name || !familyName || !cardUID) {
+        alert('Please fill in all fields.');
+        return; // Exit the function if any field is empty
+    }
+
     // Fetch existing users first
     fetch('/api/users')
         .then(response => response.json())
