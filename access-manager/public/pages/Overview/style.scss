@@ -82,6 +82,13 @@ html, body
             box-shadow: 0px 0px 15px 10px rgba($color: #313131, $alpha: 0.1);
             transition: all 0.3s ease;
 
+            img
+            {
+                height: 70%;
+                width: auto;
+                margin-top: 10px;
+            }
+
             p
             {
                 margin-top: auto;

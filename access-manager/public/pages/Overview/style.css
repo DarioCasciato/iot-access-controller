@@ -60,6 +60,11 @@ html .pages a, body .pages a {
   box-shadow: 0px 0px 15px 10px rgba(49, 49, 49, 0.1);
   transition: all 0.3s ease;
 }
+html .pages a img, body .pages a img {
+  height: 70%;
+  width: auto;
+  margin-top: 10px;
+}
 html .pages a p, body .pages a p {
   margin-top: auto;
   margin-bottom: 20px;
