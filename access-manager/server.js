@@ -44,7 +44,7 @@ app.get('/log-overview', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/pages/LogOverview/index.html'));
 });
 
-// Serve the User Creation page
+// Serve the Manage Users page
 app.get('/user-creation', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/pages/UserCreation/index.html'));
 });

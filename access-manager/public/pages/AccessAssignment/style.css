@@ -229,4 +229,12 @@ button.delete-btn:focus {
   color: rgba(0, 0, 0, 0.7);
   text-decoration: none;
   font-weight: bold;
+}
+
+.expired {
+  background-color: #ffcccc; /* light red */
+}
+
+.clickable {
+  cursor: pointer;
 }/*# sourceMappingURL=style.css.map */

@@ -94,10 +94,18 @@ function populateAssignmentsTable(assignments) {
 
     assignments.forEach((assignment, index) => {
         const row = tableBody.insertRow();
+
+        // Check if the assignment is expired
+        const isExpired = assignment.expiry !== "never" && new Date(assignment.expiry) < new Date();
+
         row.insertCell(0).textContent = assignment.userName;
         row.insertCell(1).textContent = assignment.accessPointName;
-        const formattedExpiry = assignment.expiry !== "never" ? formatDate(assignment.expiry) : "Never";
-        row.insertCell(2).textContent = formattedExpiry;
+
+        const expiryCell = row.insertCell(2);
+        expiryCell.textContent = assignment.expiry !== "never" ? formatDate(assignment.expiry) : "Never";
+        if (isExpired) {
+            expiryCell.classList.add('expired'); // Add class if expired
+        }
 
         // Actions cell for delete button
         const actionsCell = row.insertCell(3);
@@ -105,12 +113,11 @@ function populateAssignmentsTable(assignments) {
         deleteButton.textContent = 'Delete';
         deleteButton.dataset.id = assignment.id;
         deleteButton.classList.add('delete-btn');
-        deleteButton.onclick = function() { // Attach the event listener directly
-            deleteAssignment(assignment.id);
-        };
+        deleteButton.onclick = function() { deleteAssignment(assignment.id); };
         actionsCell.appendChild(deleteButton);
     });
 }
+
 
 
 function createAssignment() {
