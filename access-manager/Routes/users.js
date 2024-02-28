@@ -6,6 +6,7 @@ const path = require('path');
 const router = express.Router();
 
 const usersFilePath = path.join(__dirname, '..', 'data', 'users.csv');
+const assignmentsFilePath = path.join(__dirname, '..', 'data', 'access-assignments.csv');
 
 // Helper function to read users from CSV
 function readUsersFromFile(filePath) {
@@ -15,6 +16,16 @@ function readUsersFromFile(filePath) {
 
 // Helper function to write users to CSV
 function writeUsersToFile(filePath, records) {
+    const updatedCsvData = stringify(records, { header: true });
+    fs.writeFileSync(filePath, updatedCsvData, 'utf8');
+}
+
+function readCsvFromFile(filePath) {
+    const csvData = fs.readFileSync(filePath, 'utf8');
+    return parse(csvData, { columns: true, skip_empty_lines: true });
+}
+
+function writeCsvToFile(filePath, records) {
     const updatedCsvData = stringify(records, { header: true });
     fs.writeFileSync(filePath, updatedCsvData, 'utf8');
 }
@@ -57,13 +68,23 @@ router.delete('/:cardUID', (req, res) => {
     const { cardUID } = req.params;
 
     try {
-        let records = readUsersFromFile(usersFilePath);
-        const updatedRecords = records.filter(record => record.cardUID !== cardUID);
-        writeUsersToFile(usersFilePath, updatedRecords);
-        res.json({ message: 'User deleted successfully' });
+        let users = readUsersFromFile(usersFilePath);
+        let assignments = readCsvFromFile(assignmentsFilePath);
+
+        // Filter out the user to be deleted
+        const updatedUsers = users.filter(user => user.cardUID !== cardUID);
+
+        // Filter out any assignments related to the deleted user
+        const updatedAssignments = assignments.filter(assignment => assignment.cardUID !== cardUID);
+
+        // Write the updated users and assignments back to their respective CSV files
+        writeUsersToFile(usersFilePath, updatedUsers);
+        writeCsvToFile(assignmentsFilePath, updatedAssignments);
+
+        res.json({ message: 'User and related assignments deleted successfully' });
     } catch (error) {
-        console.error("Failed to delete user:", error);
-        res.status(500).json({ message: 'Failed to delete user' });
+        console.error("Failed to delete user and related assignments:", error);
+        res.status(500).json({ message: 'Failed to delete user and related assignments' });
     }
 });
 

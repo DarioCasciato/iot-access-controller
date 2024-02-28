@@ -8,6 +8,7 @@ html, body {
   display: flex;
   flex-direction: column;
   font-family: "1dormakaba", sans-serif;
+  min-height: 100vh;
 }
 html .header, body .header {
   height: 50px;
@@ -39,8 +40,10 @@ html .editable, body .editable {
   cursor: pointer;
 }
 html .new-device, body .new-device {
-  width: 100%;
-  margin: 20px 50px;
+  width: calc(100% - 50px);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 50px;
 }
 html .new-device button, body .new-device button {
   margin: 0 20px 0 0;
@@ -63,7 +66,7 @@ html .new-device button:focus, body .new-device button:focus {
 html .new-device #progressContainer, body .new-device #progressContainer {
   margin-top: 20px;
   border-radius: 100px;
-  width: calc(100% - 100px);
+  width: calc(100% - 60px);
   height: 20px;
   border: 2px solid rgba(0, 0, 0, 0.32);
 }
@@ -117,4 +120,20 @@ html .actions-cell button.delete-button, body .actions-cell button.delete-button
 html .actions-cell button.delete-button:hover, body .actions-cell button.delete-button:hover {
   background-color: #ffffff;
   color: #e62b2f;
+}
+html .footer, body .footer {
+  flex-shrink: 0;
+  height: 30px;
+  background-color: #EEEEEE;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: auto;
+}
+html .footer p, body .footer p {
+  margin-right: 50px;
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+  font-weight: bold;
 }/*# sourceMappingURL=style.css.map */

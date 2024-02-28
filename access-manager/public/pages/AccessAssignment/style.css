@@ -8,6 +8,7 @@ html, body {
   display: flex;
   flex-direction: column;
   font-family: "1dormakaba", sans-serif;
+  min-height: 100vh;
 }
 
 .header {
@@ -211,4 +212,21 @@ button.delete-btn:hover {
 }
 button.delete-btn:focus {
   outline: none;
+}
+
+.footer {
+  flex-shrink: 0;
+  height: 30px;
+  background-color: #EEEEEE;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: auto;
+}
+.footer p {
+  margin-right: 50px;
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+  font-weight: bold;
 }/*# sourceMappingURL=style.css.map */

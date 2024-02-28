@@ -9,6 +9,7 @@ $primary-red: #e62b2f;
 $primary-green: #4CAF50;
 $primary-white: #ffffff;
 $primary-black: #000000;
+$primary-grey: #EEEEEE;
 
 html, body {
     margin: 0;
@@ -16,6 +17,7 @@ html, body {
     display: flex;
     flex-direction: column;
     font-family: '1dormakaba', sans-serif;
+    min-height: 100vh;
 
     .header {
         height: 50px;
@@ -127,4 +129,22 @@ html, body {
         color: red;
     }
 
+    .footer
+    {
+        flex-shrink: 0;
+        height: 30px;
+        background-color: $primary-grey;
+        display: flex;
+        flex-direction: row;
+        justify-content:flex-end;
+        align-items: center;
+        margin-top: auto;
+
+        p {
+            margin-right: 50px;
+            color: rgba(0, 0, 0, 0.7);
+            text-decoration: none;
+            font-weight: bold;
+        }
+    }
 }

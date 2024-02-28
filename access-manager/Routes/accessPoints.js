@@ -6,6 +6,17 @@ const path = require('path');
 const router = express.Router();
 
 const accessPointsFilePath = path.join(__dirname, '..', 'data', 'access-points.csv');
+const assignmentsFilePath = path.join(__dirname, '..', 'data', 'access-assignments.csv');
+
+function readCsvFromFile(filePath) {
+    const csvData = fs.readFileSync(filePath, 'utf8');
+    return parse(csvData, { columns: true, skip_empty_lines: true });
+}
+
+function writeCsvToFile(filePath, records) {
+    const updatedCsvData = stringify(records, { header: true });
+    fs.writeFileSync(filePath, updatedCsvData, 'utf8');
+}
 
 // Route to get all access points, including their IPs
 router.get('/', (req, res) => {
@@ -60,17 +71,23 @@ router.post('/delete', (req, res) => {
     const { deviceID } = req.body;
 
     try {
-        const csvData = fs.readFileSync(accessPointsFilePath, 'utf8');
-        let records = parse(csvData, { columns: true, skip_empty_lines: true });
+        let accessPoints = parse(fs.readFileSync(accessPointsFilePath, 'utf8'), { columns: true, skip_empty_lines: true });
+        let assignments = readCsvFromFile(assignmentsFilePath);
 
-        const updatedRecords = records.filter(record => record.deviceID !== deviceID);
-        const updatedCsvData = stringify(updatedRecords, { header: true });
-        fs.writeFileSync(accessPointsFilePath, updatedCsvData, 'utf8');
+        // Filter out the access point to be deleted
+        const updatedAccessPoints = accessPoints.filter(ap => ap.deviceID !== deviceID);
 
-        res.json({ message: 'Device deleted successfully' });
+        // Filter out any assignments related to the deleted access point
+        const updatedAssignments = assignments.filter(assignment => assignment.deviceID !== deviceID);
+
+        // Write the updated access points and assignments back to their respective CSV files
+        fs.writeFileSync(accessPointsFilePath, stringify(updatedAccessPoints, { header: true }), 'utf8');
+        writeCsvToFile(assignmentsFilePath, updatedAssignments);
+
+        res.json({ message: 'Access point and related assignments deleted successfully' });
     } catch (error) {
-        console.error('Failed to delete device:', error);
-        res.status(500).json({ message: 'Failed to delete device' });
+        console.error('Failed to delete access point and related assignments:', error);
+        res.status(500).json({ message: 'Failed to delete access point and related assignments' });
     }
 });
 

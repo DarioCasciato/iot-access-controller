@@ -8,6 +8,7 @@ html, body {
   display: flex;
   flex-direction: column;
   font-family: "1dormakaba", sans-serif;
+  min-height: 100vh;
 }
 html .header, body .header {
   height: 50px;
@@ -65,4 +66,20 @@ html .pages a p, body .pages a p {
 }
 html .pages a:hover, body .pages a:hover {
   transform: scale(1.05);
+}
+html .footer, body .footer {
+  flex-shrink: 0;
+  height: 30px;
+  background-color: #EEEEEE;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: auto;
+}
+html .footer p, body .footer p {
+  margin-right: 50px;
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+  font-weight: bold;
 }/*# sourceMappingURL=style.css.map */
