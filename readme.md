@@ -19,10 +19,10 @@ The Web Interface provides the following features:
 - **Real-time Access Requests**: Handle access requests sent from MCUs, checking against assigned access rights.
 
 The Firmware for the ESP8266 microcontroller includes the following features:
-- **RFID Reader**: Read RFID cards to identify users.
+- **RFID Reader**: Read RFID cards to identify users. (i used a Joy-It MFRC522)
 - **Access Request**: Send access requests to the server for access validation. So the MCU does not have to store access rights locally.
 - **Wi-Fi Connectivity**: Connect to the server over Wi-Fi to send access requests and receive responses.
-- **Real-time Feedback**: Indicate access decisions with LEDs and a buzzer.
+- **Real-time Feedback**: Indicate access decisions with LEDs and a buzzer. (SK6812 LED & a generic Buzzer)
 - **Host API**: The MCU can host an API to receive commands from the server to get its device ID and/or card UIDs for creating new users and requesting access.
 
 ## Getting Started
