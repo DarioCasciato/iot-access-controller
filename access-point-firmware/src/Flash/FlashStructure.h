@@ -14,7 +14,6 @@ namespace Flash
         // Define your memory areas here
         // Example: uint8_t memory1[0x200]; // 512 bytes
         // Add more as needed
-        uint8_t idTestMemory[0x80]; // 128 bytes
     };
 
     extern Layout flashLayout; // Declaration of the global instance
