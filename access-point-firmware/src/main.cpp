@@ -27,7 +27,6 @@ void setup()
     Serial.begin(9600);
 #endif
 
-    Flash::init();
     Hardware::init();
     Wifi::establish();
     Host::init();

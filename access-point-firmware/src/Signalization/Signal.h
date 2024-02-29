@@ -2,8 +2,8 @@
 // Template-Project | Signal
 // =============================================================================
 
-#ifndef _TEMPLATE_PROJECT_SIGNAL_
-#define _TEMPLATE_PROJECT_SIGNAL_
+#ifndef _ACCESS_POINT_SIGNAL_
+#define _ACCESS_POINT_SIGNAL_
 
 #include <stdint.h>
 #include <Arduino.h>
@@ -37,4 +37,4 @@ namespace Signal
 }
 
 
-#endif // _TEMPLATE_PROJECT_SIGNAL_
+#endif // _ACCESS_POINT_SIGNAL_

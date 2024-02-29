@@ -15,8 +15,8 @@
 
 #define FONT u8g2_font_6x10_tf
 
-#ifndef _TEMPLATE_PROJECT_OLED_
-#define _TEMPLATE_PROJECT_OLED_
+#ifndef _ACCESS_POINT_OLED_
+#define _ACCESS_POINT_OLED_
 
 // This Class is used (mostly probably) for the ESP8266 with the onboard OLED u8g2
 class OLED
@@ -40,6 +40,6 @@ class OLED
         U8G2_SSD1306_128X64_NONAME_F_SW_I2C screen;
 };
 
-#endif // _TEMPLATE_PROJECT_OLED_
+#endif // _ACCESS_POINT_OLED_
 
 #endif // U8G2_H

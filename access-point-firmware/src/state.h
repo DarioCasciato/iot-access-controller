@@ -2,8 +2,8 @@
 // Template-Project | State
 // =============================================================================
 
-#ifndef _TEMPLATE_PROJECT_STATE_
-#define _TEMPLATE_PROJECT_STATE_
+#ifndef _ACCESS_POINT_STATE_
+#define _ACCESS_POINT_STATE_
 
 #include "hardware.h"
 
@@ -28,4 +28,4 @@ namespace State
     void stateError();
 } // namespace State
 
-#endif // _TEMPLATE_PROJECT_STATE_
+#endif // _ACCESS_POINT_STATE_

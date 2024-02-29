@@ -2,8 +2,8 @@
 // Template-Project | Hardware
 // =============================================================================
 
-#ifndef _TEMPLATE_PROJECT_HARDWARE_
-#define _TEMPLATE_PROJECT_HARDWARE_
+#ifndef _ACCESS_POINT_HARDWARE_
+#define _ACCESS_POINT_HARDWARE_
 
 #include <Arduino.h>
 #include "configurations.h"
@@ -50,4 +50,4 @@ namespace Hardware
 } // namespace Hardware
 
 
-#endif // _TEMPLATE_PROJECT_HARDWARE_
+#endif // _ACCESS_POINT_HARDWARE_
