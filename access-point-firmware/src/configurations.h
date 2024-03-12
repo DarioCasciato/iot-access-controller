@@ -3,12 +3,34 @@
 // =============================================================================
 
 #include "user_interface.h"
+#include "Flash/Flash.h"
 
 #ifndef _ACCESS_POINT_CONFIGURATIONS_
 #define _ACCESS_POINT_CONFIGURATIONS_
 
-const String serverIP = "192.168.1.153:3000";
-const String deviceID = String(system_get_chip_id(), HEX);
+namespace
+{
+    String serverIP = "";
+    const String deviceID = String(system_get_chip_id(), HEX);
+}
+
+
+String getDeviceID()
+{
+    return deviceID;
+}
+
+void setServerIP(const String& ip)
+{
+    Flash::configStore.write((uint8_t)Flash::ID::ServerIP, ip);
+}
+
+String getServerIP()
+{
+    String ip;
+    Flash::configStore.read((uint8_t)Flash::ID::ServerIP, ip);
+    return ip;
+}
 
 
 #endif // _ACCESS_POINT_CONFIGURATIONS_

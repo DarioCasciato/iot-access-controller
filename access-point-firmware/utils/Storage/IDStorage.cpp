@@ -237,6 +237,28 @@ bool IDStorage::read(uint8_t id, void* data, uint8_t size)
     return true;
 }
 
+bool IDStorage::read(uint8_t id, String& data)
+{
+    uint16_t addr = findID(id);
+
+    if (addr == 0)
+    {
+        return false; // ID not found
+    }
+
+    uint8_t dataSize = EEPROM.read(addr + lengthOffset);
+
+    char cData[dataSize];
+    for (uint8_t i = 0; i < dataSize; i++)
+    {
+        cData[i] = EEPROM.read(addr + tagAndLengthSize + i);
+    }
+
+    data = String(cData);
+
+    return true;
+}
+
 bool IDStorage::deleteID(uint8_t id)
 {
     uint16_t addr = findID(id);

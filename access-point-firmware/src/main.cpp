@@ -30,6 +30,7 @@ void setup()
     Hardware::init();
     Wifi::establish();
     Host::init();
+    Flash::init();
     Signal::connectionEstablished();
 }
 

@@ -12,7 +12,7 @@ namespace Flash
     struct Layout
     {
         // Define your memory areas here
-        // Example: uint8_t memory1[0x200]; // 512 bytes
+        uint8_t memory1[0x80]; // 128 bytes
         // Add more as needed
     };
 
