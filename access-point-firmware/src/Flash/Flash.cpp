@@ -20,6 +20,7 @@ namespace Flash
     void initStorage()
     {
         // Example: storage.init();
+        configStore.init();
     }
 
     }
@@ -27,6 +28,7 @@ namespace Flash
     void clear()
     {
         // Example: storage.clear();
+        configStore.clear();
     }
 
 
