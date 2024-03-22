@@ -1,0 +1,4 @@
+deviceID,ip,name,notes
+2e5f93,192.168.1.107,Main Entrance,Front door of the main building
+6823f4,192.168.1.32,Software Department,Access only for developers
+73f2a1,192.168.1.25,Management,Access only for HR employees
