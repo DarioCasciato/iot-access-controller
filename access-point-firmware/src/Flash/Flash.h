@@ -14,7 +14,7 @@ namespace Flash
 {
     // add flash memory definition here
     // example: extern RollStorage testMemory;
-
+    extern IDStorage configStore;
 
     /// @brief initializes the flash memory
     ///
@@ -23,6 +23,12 @@ namespace Flash
     /// @brief clears all flash storages
     ///
     void clear();
+
+
+    enum class ID : uint8_t
+    {
+        ServerIP = 0,
+    };
 
 } // namespace Flash
 

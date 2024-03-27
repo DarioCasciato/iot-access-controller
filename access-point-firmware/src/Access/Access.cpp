@@ -31,8 +31,13 @@ namespace Access
 {
     ResponseStatus request(const String& uid)
     {
-        String serverUrl = "http://" + serverIP + "/api/access-request";
-        String payload = "{\"deviceId\":\"" + deviceID + "\",\"uid\":\"" + uid + "\"}";
+        if(getServerIP() == "")
+        {
+            return ResponseStatus::ConnectionFailed;
+        }
+
+        String serverUrl = "http://" + getServerIP() + "/api/access-request";
+        String payload = "{\"deviceId\":\"" + getDeviceID() + "\",\"uid\":\"" + uid + "\"}";
         String response;
 
         // check wifi connection

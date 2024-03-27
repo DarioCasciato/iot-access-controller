@@ -110,6 +110,14 @@ public:
     ///
     bool read(uint8_t id, void* destination, uint8_t size);
 
+    /// @brief Read data associated with a specific ID. (overload)
+    ///
+    /// @param id ID from which the data should be read
+    /// @param destination Pointer to store the read data
+    /// @return True if the read was successful, false otherwise
+    ///
+    bool read(uint8_t id, String& destination);
+
     /// @brief Delete data associated with a specific ID.
     ///
     /// @param id ID from which the data should be deleted
