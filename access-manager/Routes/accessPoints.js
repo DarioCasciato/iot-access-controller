@@ -3,6 +3,7 @@ const fs = require('fs');
 const { parse } = require('csv-parse/sync');
 const { stringify } = require('csv-stringify/sync');
 const path = require('path');
+const fetch = require('node-fetch');
 const router = express.Router();
 
 const accessPointsFilePath = path.join(__dirname, '..', 'data', 'access-points.csv');
@@ -31,7 +32,7 @@ router.get('/', (req, res) => {
 });
 
 // Route to update an existing access point or add a new one
-router.post('/update', (req, res) => {
+router.post('/update', async (req, res) => {
     const { deviceID, ip, newName, newNotes } = req.body;
 
     try {
@@ -52,6 +53,18 @@ router.post('/update', (req, res) => {
         } else {
             // New device, add it
             records.push({ deviceID, ip, name: newName, notes: newNotes });
+            // Send Server Ip to the new device
+            const serverIP = req.socket.localAddress; // Get the server's IP address
+            // Send Server IP to the new device
+            const response = await fetch(`http://${ip}/setserverip`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ServerIP: serverIP }) // Send the server IP to the microcontroller
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send server IP to the microcontroller');
+            }
         }
 
         // Save the updated records to the CSV
