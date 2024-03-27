@@ -56,15 +56,11 @@ router.post('/update', async (req, res) => {
             // Send Server Ip to the new device
             const serverIP = req.socket.localAddress; // Get the server's IP address
             // Send Server IP to the new device
-            const response = await fetch(`http://${ip}/setserverip`, {
+            await fetch(`http://${ip}/setserverip`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ServerIP: serverIP }) // Send the server IP to the microcontroller
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to send server IP to the microcontroller');
-            }
         }
 
         // Save the updated records to the CSV
