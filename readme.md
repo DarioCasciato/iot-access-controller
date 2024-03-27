@@ -49,6 +49,17 @@ The Firmware for the ESP8266 microcontroller includes the following features:
 ```
 The server should now be running and accessible at `http://localhost:3000`.
 
+### Wiring
+
+For the Wiring, please refer to the [hardware port definition](https://github.com/DarioCasciato/iot-access-controller/blob/main/access-point-firmware/src/hardware.h).
+
+Used hardware in the project:
+- ESP8266
+- Joy-it MFRC522 RFID Reader
+- Generic Buzzer
+- SK6812 single LED
+
+
 ### Configuration
 
 - **Server IP**: Set your server's IP address in the MCU code to ensure it can communicate with the server. You can configure this in the `configurations.h` file.
