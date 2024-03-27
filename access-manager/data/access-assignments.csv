@@ -1,0 +1,6 @@
+id,cardUID,deviceID,expiry,isTimeLimited
+1,622ab8,2e5f93,never,false
+2,622ab8,6823f4,never,false
+4,123456,6823f4,2024-03-20T16:00,true
+5,123456,2e5f93,never,false
+6,123456,73f2a1,never,false

@@ -56,7 +56,7 @@ function displayLogs(logs) {
     tableBody.innerHTML = '';
 
     // Reverse the logs to display the newest first
-    const reversedLogs = logs.slice().reverse(); // Create a copy and reverse it
+    const reversedLogs = logs.slice(); // Create a copy and reverse it
 
     reversedLogs.forEach(log => {
         const row = tableBody.insertRow();
