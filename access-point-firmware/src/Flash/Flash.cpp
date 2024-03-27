@@ -11,7 +11,7 @@ namespace Flash
 
     // add flash memory definition here
     // Example: RollStorage storage(&flashLayout.memory1[0], sizeof(flashLayout.memory1), sizeof(DataType));
-
+    IDStorage configStore(&flashLayout.memory1[0], sizeof(flashLayout.memory1));
 
     // Add initializers here
     namespace
@@ -20,6 +20,7 @@ namespace Flash
     void initStorage()
     {
         // Example: storage.init();
+        configStore.init();
     }
 
     }
@@ -27,6 +28,7 @@ namespace Flash
     void clear()
     {
         // Example: storage.clear();
+        configStore.clear();
     }
 
 
@@ -42,5 +44,4 @@ namespace Flash
 
         Logging::log("Flash memory initialized\n");
     }
-
 } // namespace Flash

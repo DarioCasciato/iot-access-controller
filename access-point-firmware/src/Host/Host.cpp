@@ -14,13 +14,15 @@
 #include "Timer.h"
 #include "Logging.h"
 #include "EdgeDetection.h"
+#include "configurations.h"
+#include "Connectivity.h"
 
 
 ESP8266WebServer server(80);
 
 namespace
 {
-    const String jsonString = "{\"deviceID\":\"" + deviceID + "\"}";
+    const String jsonString = "{\"deviceID\":\"" + getDeviceID() + "\"}";
 }
 
 namespace Host
@@ -38,6 +40,17 @@ namespace Host
         {
             server.sendHeader("Access-Control-Allow-Origin", "*"); // Add this line
             server.send(200, "application/json", jsonString);
+        });
+
+        server.on("/setserverip", []()
+        {
+            // The "on setserverip" endpoint recieves a JSON payload with the new server IP as (ServerIP)
+            String payload = server.arg("plain");
+            String serverIP;
+
+            APIHandler::JSON::extract(payload, "ServerIP", &serverIP);
+
+            setServerIP(serverIP);
         });
 
         server.on("/getcarduid", []()
