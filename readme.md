@@ -7,7 +7,7 @@ This project was developed as a part of the new program of the trial internship 
 
 ## Overview Image
 
-![Overview](doc/img/overview.png)
+![Overview](doc/img/Webview/overview.png)
 
 ## Features
 
