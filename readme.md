@@ -1,4 +1,4 @@
-# IoT Access Control System (mini-Exos)
+# IoT Access Control System (Mini-exos)
 
 This project implements an Access Control System designed to manage and control access to secure areas or devices. It includes an interface for managing users, access points, access assignments, and logging access attempts. The system allows for real-time access requests from microcontrollers (specifically ESP8266 in this project) equipped with RFID readers, for a seamless access control solution.
 
