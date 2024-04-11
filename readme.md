@@ -54,10 +54,10 @@ The server should now be running and accessible at `http://localhost:3000`.
 For the Wiring, please refer to the [hardware port definition](https://github.com/DarioCasciato/iot-access-controller/blob/main/access-point-firmware/src/hardware.h).
 
 Used hardware in the project:
-- ESP8266
-- Joy-it MFRC522 RFID Reader
-- Generic Buzzer
-- SK6812 single LED
+- ESP8266                          https://www.reichelt.com/ch/de/nodemcu-esp8266-wifi-modul-debo-jt-esp8266-p219900.html?&trstct=pos_1&nbc=1
+- Joy-it MFRC522 RFID Reader       https://www.reichelt.com/ch/de/entwicklerboards-rfid-set-mit-rc522-rfid-modul-debo-rfid-set-p301408.html?&trstct=pos_1&nbc=1
+- Generic Buzzer                   https://www.reichelt.com/ch/de/entwicklerboards-summer-passiv-debo-buzzer-p1-p282661.html?&trstct=pos_0&nbc=1
+- SK6812 single LED                https://www.conrad.de/de/p/thomsen-led-5-rgb-sk-led-rgb-rgb-rund-5-mm-20-ma-6-v-1575784.html?refresh=true
 
 
 ### Configuration
